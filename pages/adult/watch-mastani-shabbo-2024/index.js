@@ -480,7 +480,7 @@ const adultDetail = ({ adult }) => {
     name: adult.title,
     description: adult.text,
     uploadDate: adult.datePublished,
-    thumbnailUrl: adult.backimage,
+    thumbnailUrl: adult.image,
     duration: 'P34S', // Replace with the actual duration if it's different
     embedUrl: adult.videourl
   })

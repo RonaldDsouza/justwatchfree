@@ -129,7 +129,7 @@ const latestPage = ({ items }) => {
 
         <meta
           name='keywords'
-        content='just watch free, watch free movies, watch movies free online, free download movies, watch free full movies, watch free hd movies, free movies, watch movies free'
+         content='justwatch, just watch, justwatch.com, justwatch.tv, watch free movies, watch movies free online, free download movies, watch free full movies, watch free hd movies, free movies, watch movies free'
         />
         <meta property='og:site_name' content='JUST WATCH FREE' />
         {/* <meta property='og:type' content='article' /> */}

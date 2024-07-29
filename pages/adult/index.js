@@ -179,7 +179,7 @@ const adultPage = ({ items }) => {
         />
         <meta
           name='keywords'
-          content='azadult,  JWF, a-z adult,  JWF, watch free adult, watch adult online, download adult, watch full adult, watch hd adult'
+          content='justwatch, just watch, justwatch.com, justwatch.tv, watch free movies, watch movies free online, free download movies, watch free full movies, watch free hd movies, free movies, watch movies free'
         />
         <meta
           property='og:image'

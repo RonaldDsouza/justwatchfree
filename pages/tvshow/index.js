@@ -5,7 +5,7 @@ import latestData from '../../public/latest.json'
 import tvshowData from '../../public/tvshow.json'
 import GoogleTranslate from '../../components/GoogleTranslate'
 import Pagination from '../../components/Pagination'
-import SocialSharing from '../../components/SocialSharing';
+import SocialSharing from '../../components/SocialSharing'
 import Head from 'next/head'
 import Script from 'next/script'
 
@@ -168,14 +168,14 @@ const tvshowPage = ({ items }) => {
         />
         <meta
           name='keywords'
-        content='justwatch, just watch, justwatch.com, justwatch.tv, watch free movies, watch movies free online, free download movies, watch free full movies, watch free hd movies, free movies, watch movies free'
+          content='justwatch, just watch, justwatch.com, justwatch.tv, watch free movies, watch movies free online, free download movies, watch free full movies, watch free hd movies, free movies, watch movies free'
         />
         <meta
           property='og:image'
           content='https://justwatchfree.vercel.app/og_image.jpg'
         />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
+        <meta property='og:image:width' content='1200' />
+        <meta property='og:image:height' content='630' />
         <meta property='og:image:type' content='image/webp' />
         <meta name='twitter:card' content='summary_large_image' />
         <meta name='twitter:label1' content='Est. reading time' />
@@ -214,11 +214,10 @@ const tvshowPage = ({ items }) => {
           crossorigin='anonymous'
           referrerpolicy='no-referrer'
         />
-     
       </Head>
       <Script
-            dangerouslySetInnerHTML={{
-              __html: `
+        dangerouslySetInnerHTML={{
+          __html: `
             (function (w, d, s, id) {
               if (typeof (w.webpushr) !== 'undefined') return;
               w.webpushr = w.webpushr |function () { (w.webpushr.q = w.webpushr.q |[]).push(arguments) };
@@ -230,13 +229,13 @@ const tvshowPage = ({ items }) => {
 
             webpushr('setup', { 'key': 'BDeLBmbVL39XWa_fEU4TTZ5OFjYr0zLf_PZN6CLLEtCdxOsDYdH6TIWC1ltmT8A4QdXsd8zVbN3izqMFubKPW_k' });
           `
-            }}
-          />
+        }}
+      />
       <GoogleTranslate />
- <SocialSharing />
-<Script src='../../propler/ads.js' defer />
-<Script src='../../propler/ads2.js' defer />
-  
+      <SocialSharing />
+      {/* <Script src='../../propler/ads.js' defer /> */}
+      {/* <Script src='../../propler/ads2.js' defer /> */}
+
       <h1
         className='badge bg-gradient-to-r from-pink-500 to-amber-500 font-bold py-3 px-6  shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300'
         style={{

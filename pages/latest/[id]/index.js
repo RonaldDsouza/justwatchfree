@@ -343,8 +343,8 @@ const latestDetail = ({ latest }) => {
           />
       <GoogleTranslate />
  <SocialSharing />
-      <Script src='../../propler/ads.js' defer /> 
-      <Script src='../../propler/ads2.js' defer /> 
+      {/* <Script src='../../propler/ads.js' defer /> */} 
+      {/* <Script src='../../propler/ads2.js' defer /> */} 
  
 
       <div

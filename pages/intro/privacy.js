@@ -205,7 +205,7 @@ const Privacy = () => {
           />
           <meta
             name='keywords'
-           content='justwatch, just watch, justwatch.com, justwatch.tv, watch free movies, watch movies free online, free download movies, watch free full movies, watch free hd movies, free movies, watch movies free'
+            content='justwatch, just watch, justwatch.com, justwatch.tv, watch free movies, watch movies free online, free download movies, watch free full movies, watch free hd movies, free movies, watch movies free'
           />
          
           <link rel='canonical' href='https://justwatchfree.vercel.app/intro/privacy' />
@@ -284,8 +284,8 @@ const Privacy = () => {
         </Head>
         <GoogleTranslate />
  <SocialSharing />
-      <Script src='../../propler/ads.js' defer />
-      <Script src='../../propler/ads2.js' defer />
+      {/* <Script src='../../propler/ads.js' defer /> */}
+      {/* <Script src='../../propler/ads2.js' defer /> */}
          <script
             type='application/ld+json'
             dangerouslySetInnerHTML={{ __html: rankMathSchema }}

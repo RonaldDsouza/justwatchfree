@@ -169,7 +169,7 @@ const moviesPage = ({ items }) => {
         />
         <meta
           name='keywords'
-           content='justwatch, just watch, justwatch.com, justwatch.tv, watch free movies, watch movies free online, free download movies, watch free full movies, watch free hd movies, free movies, watch movies free'
+            content='justwatch, just watch, justwatch.com, justwatch.tv, watch free movies, watch movies free online, free download movies, watch free full movies, watch free hd movies, free movies, watch movies free'
         />
         <meta
           property='og:image'
@@ -235,8 +235,8 @@ const moviesPage = ({ items }) => {
     
       <GoogleTranslate />
       <SocialSharing />
-      <Script src='../../propler/ads.js' defer />
-      <Script src='../propler/ads2.js' defer />
+      {/* <Script src='../../propler/ads.js' defer /> */}
+      {/* <Script src='../propler/ads2.js' defer /> */}
       <h1
         className='badge bg-gradient-to-r from-pink-500 to-amber-500 font-bold py-3 px-6  shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300'
         style={{

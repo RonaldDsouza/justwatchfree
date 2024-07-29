@@ -27,6 +27,9 @@
       "keak_sADy?thumbnail=https://xgeeks.co.uk/wp-content/uploads/2024/06/star-wars-the-acolyte-episode-4-review-header.jpg?w=1004",
       "nBymSUyk8?thumbnail=https://static.toiimg.com/photo/msid-110664220.jpeg"
     ],
+    "videomovies": [
+      "tt21051906"
+    ],
     "traileritem": [
       "x92kwyc"
     ],
@@ -652,7 +655,7 @@
     "actor5img": " https://media.themoviedb.org/t/p/w500/8m4ZIuzVBDjFbJFLXebc4iwv27o.jpg"
   },
   {
-    "id": "INDEX12",
+    
     "ids": "watch-csi-vegas-season-1-tv-series",
     "group": "Dr Trailer",
     "badge": " [ Tv Show ] ",
@@ -670,17 +673,28 @@
     "tvshow.watch": "../tvshow/watch-csi-vegas-season-1-tv-series/",
     "synopsis": " Welcome to Just Watch Free™! Dive into our detailed review of 'CSI: Vegas Season 1 - 2024,' a groundbreaking movie that redefines science fiction and fantasy. Explore the plot, performances, and stunning visuals of this cinematic masterpiece in our comprehensive analysis. Join us at Just Watch Free™ for the latest insights on 'CSI: Vegas Season 1 - 2024' and other global cinematic treasures.",
     "videotvitem": [
-      "U4aAcoVgA?thumbnail=https://i.ytimg.com/vi/XPcdGXiDleU/maxresdefault.jpg",
-      "Q-Xj5id72?thumbnail=https://m.media-amazon.com/images/S/pv-target-images/1c456c9d3ba51b21e8718c99558e7193d06aca8ae84d8057e7bcab5fea30a73c.jpg",
-      "QZId-dZEs?thumbnail=https://i.ytimg.com/vi/XPcdGXiDleU/maxresdefault.jpg",
-      "pZw2CYQ4k?thumbnail=https://m.media-amazon.com/images/S/pv-target-images/1c456c9d3ba51b21e8718c99558e7193d06aca8ae84d8057e7bcab5fea30a73c.jpg",
-      "0J1TnPEmB?thumbnail=https://i.ytimg.com/vi/XPcdGXiDleU/maxresdefault.jpg",
-      "AcJun4HyG?thumbnail=https://m.media-amazon.com/images/S/pv-target-images/1c456c9d3ba51b21e8718c99558e7193d06aca8ae84d8057e7bcab5fea30a73c.jpg",
-      "cewtLP-Ic?thumbnail=https://i.ytimg.com/vi/XPcdGXiDleU/maxresdefault.jpg",
-      "Z11gZCPrS_?thumbnail=https://m.media-amazon.com/images/S/pv-target-images/1c456c9d3ba51b21e8718c99558e7193d06aca8ae84d8057e7bcab5fea30a73c.jpg",
-      "NjfQ2HB9b?thumbnail=https://i.ytimg.com/vi/XPcdGXiDleU/maxresdefault.jpg",
-      "x8ylK-Hm7?thumbnail=https://m.media-amazon.com/images/S/pv-target-images/1c456c9d3ba51b21e8718c99558e7193d06aca8ae84d8057e7bcab5fea30a73c.jpg"
+      "U4aAcoVgA",
+      "Q-Xj5id72",
+      "QZId-dZEs",
+      "pZw2CYQ4k",
+      "0J1TnPEmB",
+      "AcJun4HyG",
+      "cewtLP-Ic",
+      "Z11gZCPrS_",
+      "NjfQ2HB9b",
+      "x8ylK-Hm7"
     ],
+    "id": "INDEX12",
+     "videotvshow": [
+      "tt12887536/1/1",
+      "tt12887536/1/2",
+      "tt12887536/1/3",
+      "tt12887536/1/4",
+      "tt12887536/1/5",
+      "tt12887536/1/6",
+      "tt12887536/1/7",
+      "tt12887536/1/8"
+    ],  
     "traileritem": [
       "x92dctm"
     ],

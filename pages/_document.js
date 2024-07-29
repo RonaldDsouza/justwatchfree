@@ -37,14 +37,14 @@ class MyDocument extends Document {
           <link rel='manifest' href='/site.webmanifest' />
           <meta name='googlebot' content='index,follow' />
           <meta name='revisit-after' content='1 days' />
-          <meta name="referrer" content="origin" />
           <meta
             name='robots'
             content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'
           />
+          <meta name="referrer" content="origin" />
           <meta
             name='keywords'
-            content='justwatch, just watch, justwatch.com, justwatch.tv, watch free movies, watch movies free online, free download movies, watch free full movies, watch free hd movies, free movies, watch movies free'
+           content='justwatch, just watch, justwatch.com, justwatch.tv, watch free movies, watch movies free online, free download movies, watch free full movies, watch free hd movies, free movies, watch movies free'
           />
             {/* <meta
               name='description'

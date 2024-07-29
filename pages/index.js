@@ -5,14 +5,16 @@ import moviesData from '../public/movies.json'
 import tvshowData from '../public/tvshow.json'
 import trailersData from '../public/trailers.json'
 import styles from '../styles/Home.module.css'
-import GoogleTranslate from '../components/GoogleTranslate'
-import InPagePushAd from '../components/InPagePushAd'
-import NativeBannerAd from '../components/NativeBannerAd'
-import SocialSharing from '../components/SocialSharing'
+import GoogleTranslate from '../components/GoogleTranslate';
+import InPagePushAd from '../components/InPagePushAd';
+import NativeBannerAd from '../components/NativeBannerAd';
+import SocialSharing from '../components/SocialSharing';
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import Script from 'next/script'
+
+
 
 // Utility function to get random items
 const getRandomItems = (data, count) => {
@@ -23,51 +25,49 @@ const getRandomItems = (data, count) => {
 const HomePage = () => {
   // const [latest, setLatest] = useState(latestData);
 
-  const [latest, setLatest] = useState([])
-  const [adult, setAdult] = useState([])
-  const [movies, setMovies] = useState([])
-  const [tvShow, setTvShow] = useState([])
-  const [trailers, setTrailers] = useState([])
+  const [latest, setLatest] = useState([]);
+  const [adult, setAdult] = useState([]);
+  const [movies, setMovies] = useState([]);
+  const [tvShow, setTvShow] = useState([]);
+  const [trailers, setTrailers] = useState([]);
 
   const fetchData = async () => {
     try {
-      const [latestRes, adultRes, moviesRes, tvShowRes, trailersRes] =
-        await Promise.all([
-          fetch('https://justwatchfree.vercel.app/latest.json'),
-          fetch('https://justwatchfree.vercel.app/adult.json'),
-          fetch('https://justwatchfree.vercel.app/movies.json'),
-          fetch('https://justwatchfree.vercel.app/tvshow.json'),
-          fetch('https://justwatchfree.vercel.app/trailers.json')
-        ])
+      const [latestRes, adultRes, moviesRes, tvShowRes, trailersRes] = await Promise.all([
+        fetch('https://justwatchfree.vercel.app/latest.json'),
+        fetch('https://justwatchfree.vercel.app/adult.json'),
+        fetch('https://justwatchfree.vercel.app/movies.json'),
+        fetch('https://justwatchfree.vercel.app/tvshow.json'),
+        fetch('https://justwatchfree.vercel.app/trailers.json')
+      ]);
 
-      const [latestData, adultData, moviesData, tvShowData, trailersData] =
-        await Promise.all([
-          latestRes.json(),
-          adultRes.json(),
-          moviesRes.json(),
-          tvShowRes.json(),
-          trailersRes.json()
-        ])
+      const [latestData, adultData, moviesData, tvShowData, trailersData] = await Promise.all([
+        latestRes.json(),
+        adultRes.json(),
+        moviesRes.json(),
+        tvShowRes.json(),
+        trailersRes.json()
+      ]);
 
-      setLatest(getRandomItems(latestData, 3))
-      setAdult(getRandomItems(adultData, 3))
-      setMovies(getRandomItems(moviesData, 3))
-      setTvShow(getRandomItems(tvShowData, 3))
-      setTrailers(getRandomItems(trailersData, 3))
+      setLatest(getRandomItems(latestData, 3));
+      setAdult(getRandomItems(adultData, 3));
+      setMovies(getRandomItems(moviesData, 3));
+      setTvShow(getRandomItems(tvShowData, 3));
+      setTrailers(getRandomItems(trailersData, 3));
     } catch (error) {
-      console.error('Error fetching data:', error)
+      console.error('Error fetching data:', error);
     }
-  }
-
+  };
+  
   useEffect(() => {
-    fetchData()
+    fetchData();
 
     const interval = setInterval(() => {
-      fetchData()
-    }, 10000) // 30000 seconds interval , 10000
+      fetchData();
+    }, 10000 ); // 30000 seconds interval , 10000
 
-    return () => clearInterval(interval) // Cleanup interval on unmount
-  }, [])
+    return () => clearInterval(interval); // Cleanup interval on unmount
+  }, []);
 
   const pageTitle = 'Just Watch Free™ - Explore. Discover. Online.'
 
@@ -89,12 +89,11 @@ const HomePage = () => {
       '@context': 'https://schema.org',
       '@type': 'WebSite',
       url: 'https://justwatchfree.vercel.app/',
-      potentialAction: {
+      potentialAction: {  
         '@type': 'SearchAction',
         target: {
           '@type': 'EntryPoint',
-          urlTemplate:
-            'https://justwatchfree.vercel.app/search?q={search_term_string}'
+          urlTemplate: 'https://justwatchfree.vercel.app/search?q={search_term_string}'
         },
         'query-input': 'required name=search_term_string'
       }
@@ -293,7 +292,7 @@ const HomePage = () => {
             content='Just Watch Free™ - Explore. Discover. Online. Stream online HD movies with Google Translate for access in any language, worldwide.'
           />
           <link rel='canonical' href='https://justwatchfree.vercel.app/' />
-
+  
           <meta property='og:locale' content='en_US' />
           <meta property='og:type' content='video.movie' />
           {/* <meta property='og:type' content='website' /> */}
@@ -314,8 +313,8 @@ const HomePage = () => {
             property='og:image'
             content='https://justwatchfree.vercel.app/og_image.jpg'
           />
-          <meta property='og:image:width' content='1200' />
-          <meta property='og:image:height' content='630' />
+          <meta property="og:image:width" content="1200" />
+          <meta property="og:image:height" content="630" />
           <meta property='og:image:type' content='image/jpg' />
           <meta
             name='application-name'
@@ -344,8 +343,9 @@ const HomePage = () => {
             name='dailymotion-domain-verification'
             content='dmdzuqt3p027t2adn'
           />
-          <meta name='monetag' content='98a412cb5612b9188cd76b9744304b6c' />
-
+          <meta 
+            name="monetag" content="98a412cb5612b9188cd76b9744304b6c"/>          
+          
           <script
             type='application/ld+json'
             dangerouslySetInnerHTML={{ __html: rankMathSchema }}
@@ -361,7 +361,7 @@ const HomePage = () => {
             crossorigin='anonymous'
             referrerpolicy='no-referrer'
           />
-          <Script
+                 <Script
             dangerouslySetInnerHTML={{
               __html: `
             (function (w, d, s, id) {
@@ -378,9 +378,9 @@ const HomePage = () => {
             }}
           />
         </Head>
-
+      
         <GoogleTranslate />
-        <SocialSharing />
+ <SocialSharing />
 
         <div
           className={`w-full`}
@@ -410,6 +410,7 @@ const HomePage = () => {
             Welcome to Just Watch Free™
           </h1>
           <p className='px-0 bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-2xl hover:text-blue-800 font-bold mt-2'>
+          
             Explore. Discover. Online.
           </p>
           <div
@@ -460,7 +461,7 @@ const HomePage = () => {
                   </a>
                 </li>
               </button>
-              <button className='border border-black p-2 m-1 hover:bg-orange-100'>
+             <button className='border border-black p-2 m-1 hover:bg-orange-100'>
                 <li id='menu-item-84' className='menu-antivirus'>
                   <a
                     href='../adult/'
@@ -500,16 +501,13 @@ const HomePage = () => {
           <div className='flex-container'>
             <div className='category-container'>
               <div className='card-container'>
-                {/* Trailer section */}
+                                                        {/* Trailer section */}
                 {trailers.map(item => (
                   <div key={item.id} className='card'>
                     <a href={`${item.id}`}>
                       <p
                         className='text-black text-xl bg-gradient-to-r from-amber-500 to-pink-500 font-bold py-3 px-6 rounded-lg shadow-lg hover:from-pink-600 hover:to-amber-600 transition duration-300'
-                        style={{
-                          marginBottom: '20px',
-                          boxShadow: '0 0 10px 0 #000'
-                        }}
+                        style={{ marginBottom: '20px',  boxShadow: '0 0 10px 0 #000', }}
                       >
                         {item.name}
                       </p>
@@ -535,14 +533,11 @@ const HomePage = () => {
                         <div className='bg-gradient-to-r from-pink-700 to-blue-700 bg-clip-text text-transparent text-black text-lg font-semibold mt-2'>
                           {item.text}
                         </div>
-                        <div
-                          className='badge bg-gradient-to-r from-pink-500 to-amber-500 font-bold py-3 px-6 rounded-lg shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300'
-                          style={{
-                            boxShadow: '0 0 10px 0 #000',
-                            filter:
-                              'contrast(1.1) saturate(1.1) brightness(1.0) hue-rotate(0deg)'
-                          }}
-                        >
+                        <div className='badge bg-gradient-to-r from-pink-500 to-amber-500 font-bold py-3 px-6 rounded-lg shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300'style={{
+                         boxShadow: '0 0 10px 0 #000',
+                         filter:
+                           'contrast(1.1) saturate(1.1) brightness(1.0) hue-rotate(0deg)'
+                       }}>
                           {item.badge}
                         </div>
                       </div>
@@ -562,16 +557,13 @@ const HomePage = () => {
                 </a>
                 {/* <InPagePushAd />
                 <NativeBannerAd /> */}
-                {/* Movies section */}
+                                                                              {/* Movies section */}
                 {movies.map(item => (
                   <div key={item.id} className='card'>
                     <a href={`${item.id}`}>
                       <p
                         className='text-black text-xl bg-gradient-to-r from-amber-500 to-pink-500 font-bold py-3 px-6 rounded-lg shadow-lg hover:from-pink-600 hover:to-amber-600 transition duration-300'
-                        style={{
-                          marginBottom: '20px',
-                          boxShadow: '0 0 10px 0 #000'
-                        }}
+                        style={{ marginBottom: '20px',  boxShadow: '0 0 10px 0 #000', }}
                       >
                         {item.name}
                       </p>
@@ -597,14 +589,11 @@ const HomePage = () => {
                         <div className='bg-gradient-to-r from-pink-700 to-blue-700 bg-clip-text text-transparent text-black text-lg font-semibold mt-2'>
                           {item.text}
                         </div>
-                        <div
-                          className='badge bg-gradient-to-r from-pink-500 to-amber-500 font-bold py-3 px-6 rounded-lg shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300'
-                          style={{
-                            boxShadow: '0 0 10px 0 #000',
-                            filter:
-                              'contrast(1.1) saturate(1.1) brightness(1.0) hue-rotate(0deg)'
-                          }}
-                        >
+                        <div className='badge bg-gradient-to-r from-pink-500 to-amber-500 font-bold py-3 px-6 rounded-lg shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300'style={{
+                         boxShadow: '0 0 10px 0 #000',
+                         filter:
+                           'contrast(1.1) saturate(1.1) brightness(1.0) hue-rotate(0deg)'
+                       }}>
                           {item.badge}
                         </div>
                       </div>
@@ -622,16 +611,13 @@ const HomePage = () => {
                     <span className='p'></span>
                   </p>
                 </a>
-                {/* TV Show section */}
+                                                                 {/* TV Show section */}
                 {tvShow.map(item => (
                   <div key={item.id} className='card'>
                     <a href={`${item.id}`}>
                       <p
-                        className='text-black text-xl bg-gradient-to-r from-amber-500 to-pink-500 font-bold py-3 px-6 rounded-lg shadow-lg hover:from-pink-600 hover:to-amber-600 transition duration-300'
-                        style={{
-                          marginBottom: '20px',
-                          boxShadow: '0 0 10px 0 #000'
-                        }}
+                      className='text-black text-xl bg-gradient-to-r from-amber-500 to-pink-500 font-bold py-3 px-6 rounded-lg shadow-lg hover:from-pink-600 hover:to-amber-600 transition duration-300'
+                        style={{ marginBottom: '20px',  boxShadow: '0 0 10px 0 #000', }}
                       >
                         {item.name}
                       </p>
@@ -657,14 +643,11 @@ const HomePage = () => {
                         <div className='bg-gradient-to-r from-pink-700 to-blue-700 bg-clip-text text-transparent text-black text-lg font-semibold mt-2'>
                           {item.text}
                         </div>
-                        <div
-                          className='badge bg-gradient-to-r from-pink-500 to-amber-500 font-bold py-3 px-6 rounded-lg shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300'
-                          style={{
-                            boxShadow: '0 0 10px 0 #000',
-                            filter:
-                              'contrast(1.1) saturate(1.1) brightness(1.0) hue-rotate(0deg)'
-                          }}
-                        >
+                        <div className='badge bg-gradient-to-r from-pink-500 to-amber-500 font-bold py-3 px-6 rounded-lg shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300'style={{
+                         boxShadow: '0 0 10px 0 #000',
+                         filter:
+                           'contrast(1.1) saturate(1.1) brightness(1.0) hue-rotate(0deg)'
+                       }}>
                           {item.badge}
                         </div>
                       </div>
@@ -688,10 +671,7 @@ const HomePage = () => {
                     <a href={`${item.id}`}>
                       <p
                         className='text-black text-xl bg-gradient-to-r from-amber-500 to-pink-500 font-bold py-3 px-6 rounded-lg shadow-lg hover:from-pink-600 hover:to-amber-600 transition duration-300'
-                        style={{
-                          marginBottom: '20px',
-                          boxShadow: '0 0 10px 0 #000'
-                        }}
+                       style={{ marginBottom: '20px',  boxShadow: '0 0 10px 0 #000', }}
                       >
                         {item.name}
                       </p>
@@ -717,14 +697,11 @@ const HomePage = () => {
                         <div className='bg-gradient-to-r from-pink-700 to-blue-700 bg-clip-text text-transparent text-black text-lg font-semibold mt-2'>
                           {item.text}
                         </div>
-                        <div
-                          className='badge bg-gradient-to-r from-pink-500 to-amber-500 font-bold py-3 px-6 rounded-lg shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300'
-                          style={{
-                            boxShadow: '0 0 10px 0 #000',
-                            filter:
-                              'contrast(1.1) saturate(1.1) brightness(1.0) hue-rotate(0deg)'
-                          }}
-                        >
+                        <div className='badge bg-gradient-to-r from-pink-500 to-amber-500 font-bold py-3 px-6 rounded-lg shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300'style={{
+                         boxShadow: '0 0 10px 0 #000',
+                         filter:
+                           'contrast(1.1) saturate(1.1) brightness(1.0) hue-rotate(0deg)'
+                       }}>
                           {item.badge}
                         </div>
                       </div>
@@ -771,7 +748,7 @@ const HomePage = () => {
                             quality={90}
                             loading='lazy'
                             style={{
-                              marginTop: '50px',
+                              marginTop:'50px',
                               width: '1280px', // Ensures the image is displayed at this width
                               height: '350px', // Ensures the image is displayed at this height
                               boxShadow: '0 0 10px 0 #000',

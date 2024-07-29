@@ -1,8 +1,9 @@
 import React from 'react'
 import Head from 'next/head'
 import Script from 'next/script'
-import GoogleTranslate from '../../components/GoogleTranslate'
-import SocialSharing from '../../components/SocialSharing'
+import GoogleTranslate from '../../components/GoogleTranslate';
+import SocialSharing from '../../components/SocialSharing';
+
 
 const dmca = () => {
   const containerStyle = {
@@ -180,6 +181,8 @@ const dmca = () => {
     ]
   })
 
+
+
   return (
     <div>
       <Head>
@@ -222,9 +225,9 @@ const dmca = () => {
         />
         <meta
           name='keywords'
-          content='justwatch, just watch, justwatch.com, justwatch.tv, watch free movies, watch movies free online, free download movies, watch free full movies, watch free hd movies, free movies, watch movies free'
+       content='justwatch, just watch, justwatch.com, justwatch.tv, watch free movies, watch movies free online, free download movies, watch free full movies, watch free hd movies, free movies, watch movies free'
         />
-
+     
         <link
           rel='canonical'
           href='https://justwatchfree.vercel.app/intro/tearms'
@@ -245,15 +248,15 @@ const dmca = () => {
           property='og:image'
           content='https://justwatchfree.vercel.app/og_image.webp'
         />
-        <meta property='og:image:width' content='1200' />
-        <meta property='og:image:height' content='630' />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
         <meta property='og:image:type' content='image/jpg' />
         <meta name='application-name' content='Just Watch Free™ ' />
         <meta
           property='article:modified_time'
           content='2024-01-01T13:13:13+00:00'
         />
-        <meta
+           <meta
           property='description'
           content='Just Watch Free™ - Explore. Discover. Online. Stream online HD movies with Google Translate for access in any language, worldwide.'
         />
@@ -276,7 +279,8 @@ const dmca = () => {
           name='dailymotion-domain-verification'
           content='dm0zffs8dj8pcb3gd'
         />
-
+        
+      
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -293,15 +297,16 @@ const dmca = () => {
           `
           }}
         />
+         
       </Head>
       <GoogleTranslate />
-      <SocialSharing />
-      <Script src='../../propler/ads.js' defer />
-      <Script src='../../propler/ads2.js' defer />
+ <SocialSharing />
+      {/* <Script src='../../propler/ads.js' defer /> */}
+      {/* <Script src='../../propler/ads2.js' defer /> */}
       <script
-        type='application/ld+json'
-        dangerouslySetInnerHTML={{ __html: rankMathSchema }}
-      />
+          type='application/ld+json'
+          dangerouslySetInnerHTML={{ __html: rankMathSchema }}
+        />
       <div style={containerStyle}>
         <section style={sectionStyle}>
           <div style={{ display: 'flex', flexWrap: 'wrap' }}>
@@ -321,12 +326,12 @@ const dmca = () => {
               <p style={{ color: '#666', marginBottom: '24px' }}>
                 All trademarks, registered trademarks, product names, and
                 company names or logos appearing on the site are the property of
-                their respective owners. Just Watch Free™™ complies with the
-                federal Digital Millennium Copyright Act (DMCA) by responding to
+                their respective owners. Just Watch Free™™ complies with the federal
+                Digital Millennium Copyright Act (DMCA) by responding to
                 credible notices of alleged infringement that adhere to the DMCA
                 and other applicable laws. As part of our response protocol, we
-                may take down or disable access to material hosted on the Just
-                Watch Free™™ website that is claimed to be infringing. In such
+                may take down or disable access to material hosted on the
+                Just Watch Free™™ website that is claimed to be infringing. In such
                 cases, we will earnestly attempt to establish contact with the
                 developer who posted the disputed material, allowing them the
                 opportunity to present a counter notification as outlined by the
@@ -337,9 +342,9 @@ const dmca = () => {
                 Counter-Notification, it is recommended to seek legal advice to
                 fully comprehend your rights and obligations under the DMCA and
                 other relevant laws. The subsequent notice guidelines are
-                designed to align with Just Watch Free™™ responsibilities under
-                the DMCA, particularly section 512(c), and do not constitute
-                legal counsel.
+                designed to align with Just Watch Free™™ responsibilities under the
+                DMCA, particularly section 512(c), and do not constitute legal
+                counsel.
               </p>
 
               <h2 style={headingStyle}>Notice of Copyright Infringement</h2>
@@ -351,9 +356,8 @@ const dmca = () => {
                 }}
               >
                 <li>
-                  To submit a notice of infringing material on Just Watch
-                  Free™™, kindly provide a notification containing the ensuing
-                  details:
+                  To submit a notice of infringing material on Just Watch Free™™, kindly
+                  provide a notification containing the ensuing details:
                 </li>
                 <li>
                   A physical signature of a developer or development team
@@ -401,13 +405,14 @@ const dmca = () => {
                 our website. If you have any questions or concerns, please
                 contact us at{' '}
                 <a style={linkStyle} href='mailto:ytmagpublisher@outlook.com'>
-                  ytmagpublisher@outlook.com
+                ytmagpublisher@outlook.com
                 </a>
                 .
               </p>
             </div>
           </div>
         </section>
+
       </div>
     </div>
   )

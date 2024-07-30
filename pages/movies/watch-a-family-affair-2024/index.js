@@ -125,7 +125,8 @@ const moviesDetail = ({ movie }) => {
     const linkTargets = [
       {
         text: 'A Family Affair - 2024',
-        url: 'https://www.imdb.com/title/tt21051906/'
+        url: `https://www.imdb.com/title/${movie.videomovies}/`
+       
       }
     ]
 
@@ -185,16 +186,17 @@ const moviesDetail = ({ movie }) => {
 
   // Define video sources
   const videoSources = [
+    { name: 'Abyss.to', url: `https://short.ink/${movieVideoItem.id}` },
     { name: 'Vidsrc.me', url: `https://vidsrc.me/embed/movie?imdb=${movieId}` },
     { name: 'Vidsrc.pro', url: `https://vidsrc.pro/embed/movie/${movieId}` },
     { name: 'Vidsrc.cc', url: `https://vidsrc.cc/v2/embed/movie/${movieId}` },
-    // { name: '2embed.cc', url: `https://www.2embed.cc/embed/movie?imdb=${movieId}` },
+    { name: '2embed.cc', url: `https://www.2embed.cc/embed/${movieId}` },
     { name: 'Autoembed.co', url: `https://autoembed.co/movie/imdb/${movieId}` },
     {
       name: 'Multiembed.mov',
       url: `https://multiembed.mov/directstream.php?video_id=${movieId}`
     },
-    { name: 'Abyss.to', url: `https://short.ink/${movieVideoItem.id}` } // Fetch from `videomoviesitem`
+   
   ]
 
   // Handle player selection
@@ -956,8 +958,9 @@ const moviesDetail = ({ movie }) => {
                   overflow: 'hidden',
                   position: 'relative'
                 }}
-                className='rounded-xl mr-8 flex flex-col border-1 border-blue-600 bg-black p-2'
+                className='rounded-xl mr-8 flex flex-col border-1 border-blue-600 bg-black p-2 '
               >
+               
                 {isMovie && (
                   <button
                     onClick={handleNextEpisode}
@@ -987,7 +990,7 @@ const moviesDetail = ({ movie }) => {
                   frameBorder='0'
                   src={videoSources[currentPlayerIndex].url}
                   width='100%'
-                  height='650px'
+                  height='450px'
                   allowFullScreen
                   scrolling='0'
                   title='Video Player'
@@ -1038,44 +1041,21 @@ const moviesDetail = ({ movie }) => {
                 className='px-0 bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-4xl hover:text-blue-800 font-bold mt-2'
                 style={{ fontFamily: 'Poppins, sans-serif' }}
               >
-                Select Server To Watch.
+                Select Player To Watch.
               </p>
-              <div className='flex flex-col items-center mt-4 gap-2'>
-                <div className='flex flex-wrap justify-center mb-4'>
-                  {videoSources.map((source, index) => (
-                    <button
-                      key={index}
-                      onClick={() => handlePlayerSelect(index)}
-                      style={{
-                        padding: '12px 24px',
-                        backgroundColor:
-                          currentPlayerIndex === index ? '#f05454' : '#f0f0f0',
-                        color: currentPlayerIndex === index ? '#fff' : '#333',
-                        border: '2px solid',
-                        borderColor:
-                          currentPlayerIndex === index ? '#f05454' : '#ddd',
-                        cursor: 'pointer',
-                        borderRadius: '8px',
-                        fontWeight: 'bold',
-                        marginRight: '12px',
-                        marginTop: '12px',
-                        transition: 'all 0.3s ease-in-out',
-                        boxShadow:
-                          currentPlayerIndex === index
-                            ? '0 4px 8px rgba(0,0,0,0.2)'
-                            : 'none',
-                        transform:
-                          currentPlayerIndex === index
-                            ? 'scale(1.05)'
-                            : 'scale(1)'
-                      }}
-                      className='hover:bg-gray-200 active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
-                    >
-                      {source.name}
-                    </button>
-                  ))}
-                </div>
-              </div>
+             
+        <div className='flex flex-wrap justify-center mb-4'>
+                {videoSources.map((source, index) => (
+          <button
+            key={index}
+            onClick={() => handlePlayerSelect(index)}
+            className={`px-4 py-2 border rounded mx-2 my-1 ${currentPlayerIndex === index ? 'bg-red-500 text-white' : 'bg-gray-200'}`}
+          >
+            Player {index + 1}
+          </button>
+        ))}
+      </div>
+              
               <p
                 className='px-0 bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-3xl hover:text-blue-800 font-bold mt-2'
                 style={{ fontFamily: 'Poppins, sans-serif' }}

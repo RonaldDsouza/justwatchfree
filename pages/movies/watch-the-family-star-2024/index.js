@@ -6,7 +6,7 @@ import adultData from '../../../public/adult.json'
 import trailersData from '../../../public/trailers.json'
 import latestData from '../../../public/latest.json'
 import GoogleTranslate from '../../../components/GoogleTranslate'
-import SocialSharing from '../../../components/SocialSharing';
+import SocialSharing from '../../../components/SocialSharing'
 import { useEffect, useState, useRef } from 'react'
 import Pagination from '../../../components/Pagination'
 import Head from 'next/head'
@@ -42,7 +42,7 @@ const moviesDetail = ({ movie }) => {
   const [playerReady, setPlayerReady] = useState(false)
   const [showTimer, setShowTimer] = useState(false)
   const [seconds, setSeconds] = useState(30) // Example timer duration
-  const [accordionExpanded, setAccordionExpanded] = useState(false);
+  const [accordionExpanded, setAccordionExpanded] = useState(false)
   const [isMobileDevice, setIsMobileDevice] = useState(false)
   const playerRef = useRef(null)
   const currentIndexRef = useRef(0)
@@ -123,7 +123,11 @@ const moviesDetail = ({ movie }) => {
 
   const enhancedParagraph = text => {
     const linkTargets = [
-      { text: 'The Family Star - 2024', url: 'https://www.imdb.com/title/tt26655108/' }
+      {
+        text: 'The Family Star - 2024',
+        url: `https://www.imdb.com/title/${movie.videomovies}/`
+       
+      }
     ]
 
     linkTargets.forEach(linkTarget => {
@@ -137,47 +141,83 @@ const moviesDetail = ({ movie }) => {
     return text
   }
 
+  const [currentPlayerIndex, setCurrentPlayerIndex] = useState(0)
   const [currentEpisodeIndex, setCurrentEpisodeIndex] = useState(0)
   const videoPlayerRef = useRef(null)
 
-  const ismovie = movie && movie.videotvitem && movie.videotvitem.length > 0
+  const isMovie = movie && movie.videotvitem && movie.videotvitem.length > 0
 
-  const handleNext = () => {
-    if (ismovie && currentEpisodeIndex < movie.videotvitem.length - 1) {
+  // Handle episode navigation
+  const handleNextEpisode = () => {
+    if (isMovie && currentEpisodeIndex < movie.videotvitem.length - 1) {
       setCurrentEpisodeIndex(currentEpisodeIndex + 1)
-    } else if (ismovie) {
+    } else if (isMovie) {
+      setCurrentEpisodeIndex(0)
+    }
+  }
+
+  const handlePreviousEpisode = () => {
+    if (isMovie && currentEpisodeIndex > 0) {
+      setCurrentEpisodeIndex(currentEpisodeIndex - 1)
+    }
+  }
+
+  // Parse video item to extract ID
+  const parseVideoItem = item => {
+    if (!item) return { id: '' }
+    const [id] = item.split('?')
+    return { id }
+  }
+
+  // Get current video item
+  const currentVideoItem =
+    isMovie && movie.videotvitem[currentEpisodeIndex]
+      ? parseVideoItem(movie.videotvitem[currentEpisodeIndex])
+      : { id: '' }
+
+  // Get movie video item
+  const movieVideoItem =
+    movie && movie.videomoviesitem && movie.videomoviesitem.length > 0
+      ? parseVideoItem(movie.videomoviesitem[0])
+      : { id: '' }
+
+  // Movie ID
+  const movieId = movie.videomovies[0]
+
+  // Define video sources
+  const videoSources = [
+    { name: 'Abyss.to', url: `https://short.ink/${movieVideoItem.id}` },
+    { name: 'Vidsrc.me', url: `https://vidsrc.me/embed/movie?imdb=${movieId}` },
+    { name: 'Vidsrc.pro', url: `https://vidsrc.pro/embed/movie/${movieId}` },
+    { name: 'Vidsrc.cc', url: `https://vidsrc.cc/v2/embed/movie/${movieId}` },
+    { name: '2embed.cc', url: `https://www.2embed.cc/embed/${movieId}` },
+    { name: 'Autoembed.co', url: `https://autoembed.co/movie/imdb/${movieId}` },
+    {
+      name: 'Multiembed.mov',
+      url: `https://multiembed.mov/directstream.php?video_id=${movieId}`
+    },
+   
+  ]
+
+  // Handle player selection
+  const handlePlayerSelect = index => {
+    setCurrentPlayerIndex(index)
+  }
+
+  // Additional functions
+  const handleNext = () => {
+    if (isMovie && currentEpisodeIndex < movie.videotvitem.length - 1) {
+      setCurrentEpisodeIndex(currentEpisodeIndex + 1)
+    } else if (isMovie) {
       setCurrentEpisodeIndex(0)
     }
   }
 
   const handlePrevious = () => {
-    if (ismovie && currentEpisodeIndex > 0) {
+    if (isMovie && currentEpisodeIndex > 0) {
       setCurrentEpisodeIndex(currentEpisodeIndex - 1)
     }
   }
-
-  const parseVideoItem = item => {
-    if (!item) return { id: '', thumbnail: '' }
-    const [id, params] = item.split('?')
-    const thumbnail = new URLSearchParams(params).get('thumbnail')
-    return { id, thumbnail }
-  }
-
-  const currentVideoItem =
-    ismovie && movie.videotvitem[currentEpisodeIndex]
-      ? parseVideoItem(movie.videotvitem[currentEpisodeIndex])
-      : { id: '', thumbnail: '' }
-
-  const movieVideoItem =
-    movie && movie.videomoviesitem && movie.videomoviesitem.length > 0
-      ? parseVideoItem(movie.videomoviesitem[0])
-      : { id: '', thumbnail: '' }
-
-  const src = ismovie
-    ? `https://short.ink/${currentVideoItem.id}`
-    : `https://short.ink/${movieVideoItem.id}?thumbnail=${
-        movieVideoItem.thumbnail || movieVideoMoviesItem.thumbnail
-      }`
 
   useEffect(() => {
     const detectMobileDevice = () => {
@@ -212,27 +252,26 @@ const moviesDetail = ({ movie }) => {
   }, [router.events])
 
   useEffect(() => {
-    let timer;
+    let timer
     if (showTimer && accordionExpanded && seconds > 0) {
       timer = setInterval(() => {
-        setSeconds(prevSeconds => (prevSeconds > 0 ? prevSeconds - 1 : 0));
-      }, 1000);
+        setSeconds(prevSeconds => (prevSeconds > 0 ? prevSeconds - 1 : 0))
+      }, 1000)
     }
-    return () => clearInterval(timer);
-  }, [showTimer, accordionExpanded, seconds]);
+    return () => clearInterval(timer)
+  }, [showTimer, accordionExpanded, seconds])
 
   const toggleAccordion = () => {
-    setAccordionExpanded(prevState => !prevState);
+    setAccordionExpanded(prevState => !prevState)
     if (!accordionExpanded) {
-      setSeconds(30); // Reset the timer when accordion is expanded
+      setSeconds(30) // Reset the timer when accordion is expanded
     }
-  };
+  }
 
   const handleStartTimer = () => {
-    setShowTimer(true);
-    setAccordionExpanded(true);
-  };
-
+    setShowTimer(true)
+    setAccordionExpanded(true)
+  }
 
   const uwatchfreeSchema = JSON.stringify([
     {
@@ -516,10 +555,7 @@ const moviesDetail = ({ movie }) => {
         <meta property='og:video:width' content='1280px' />
         <meta property='og:video:height' content='720px' />
         <meta property='og:video:type' content='video/mp4' />
-        <meta
-          property='og:title'
-          content={`${movie && movie.name} - JWF™`}
-        />
+        <meta property='og:title' content={`${movie && movie.name} - JWF™`} />
         <meta
           property='og:description'
           content='Just Watch Free™ - Explore. Discover. Online. Stream online HD movies with Google Translate for access in any language, worldwide.'
@@ -538,8 +574,8 @@ const moviesDetail = ({ movie }) => {
           content='2024-01-01T13:13:13+00:00'
         />
         <meta property='og:image' content={`${movie && movie.image1}`} />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
+        <meta property='og:image:width' content='1200' />
+        <meta property='og:image:height' content='630' />
         <meta property='og:image:type' content='image/webp' />
         <meta name='twitter:card' content='summary_large_image' />
         <meta name='twitter:label1' content='Est. reading time' />
@@ -592,8 +628,8 @@ const moviesDetail = ({ movie }) => {
         />
       </Head>
       <Script
-            dangerouslySetInnerHTML={{
-              __html: `
+        dangerouslySetInnerHTML={{
+          __html: `
             (function (w, d, s, id) {
               if (typeof (w.webpushr) !== 'undefined') return;
               w.webpushr = w.webpushr |function () { (w.webpushr.q = w.webpushr.q |[]).push(arguments) };
@@ -605,10 +641,10 @@ const moviesDetail = ({ movie }) => {
 
             webpushr('setup', { 'key': 'BDeLBmbVL39XWa_fEU4TTZ5OFjYr0zLf_PZN6CLLEtCdxOsDYdH6TIWC1ltmT8A4QdXsd8zVbN3izqMFubKPW_k' });
           `
-            }}
-          />
+        }}
+      />
       <GoogleTranslate />
- <SocialSharing />
+      <SocialSharing />
       {/* <Script src='../../propler/ads.js' defer /> */}
       {/* <Script src='../../propler/ads2.js' defer /> */}
 
@@ -922,11 +958,12 @@ const moviesDetail = ({ movie }) => {
                   overflow: 'hidden',
                   position: 'relative'
                 }}
-                className='rounded-xl mr-8 flex flex-col border-1 border-blue-600 bg-black p-2'
+                className='rounded-xl mr-8 flex flex-col border-1 border-blue-600 bg-black p-2 '
               >
-                {ismovie && (
+               
+                {isMovie && (
                   <button
-                    onClick={handleNext}
+                    onClick={handleNextEpisode}
                     disabled={
                       currentEpisodeIndex === movie.videotvitem.length - 1
                     }
@@ -951,7 +988,7 @@ const moviesDetail = ({ movie }) => {
 
                 <iframe
                   frameBorder='0'
-                  src={src}
+                  src={videoSources[currentPlayerIndex].url}
                   width='100%'
                   height='450px'
                   allowFullScreen
@@ -977,9 +1014,9 @@ const moviesDetail = ({ movie }) => {
                   to HD Quality 1080p.
                 </p>
 
-                {ismovie && (
+                {isMovie && (
                   <button
-                    onClick={handlePrevious}
+                    onClick={handlePreviousEpisode}
                     disabled={currentEpisodeIndex === 0}
                     style={{
                       marginTop: '10px',
@@ -999,165 +1036,195 @@ const moviesDetail = ({ movie }) => {
                       : currentEpisodeIndex}
                   </button>
                 )}
-
-                <img
-                  src={
-                    ismovie
-                      ? currentVideoItem.thumbnail
-                      : movieVideoItem.thumbnail
-                  }
-                  alt='Video Thumbnail'
-                  style={{
-                    position: 'absolute',
-                    top: '2px',
-                    left: '10px',
-                    width: '100px',
-                    height: '56px',
-                    boxShadow: '0 0 10px 0 #fff', // Shadow effect with black color
-                    borderRadius: '10px'
-                  }}
-                />
               </div>
               <p
-        className='px-0 bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-3xl hover:text-blue-800 font-bold mt-2'
-        style={{ fontFamily: 'Poppins, sans-serif' }}
-      >
-        Click to Download {movie.name}
-      </p>
-      <div className='flex flex-col items-center justify-center'></div>
-      {movie.mp3player && <MP3Player mp3Url={movie.mp3player} />}
-      <div
-        className='flex flex-col items-center justify-center'
-        style={{
-          marginTop: '50px',
-          marginBottom: '50px',
-          filter: 'contrast(1.1) saturate(1.1) brightness(1.0) hue-rotate(0deg)'
-        }}
-      >
-        {!showTimer ? (
+                className='px-0 bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-4xl hover:text-blue-800 font-bold mt-2'
+                style={{ fontFamily: 'Poppins, sans-serif' }}
+              >
+                Select Player To Watch.
+              </p>
+             
+        <div className='flex flex-wrap justify-center mb-4'>
+                {videoSources.map((source, index) => (
           <button
-            onClick={handleStartTimer}
-            className='animate-pulse bg-gradient-to-r from-amber-500 to-pink-500 text-black font-bold py-3 px-6 rounded-lg shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300 text-2xl'
+            key={index}
+            onClick={() => handlePlayerSelect(index)}
+            className={`px-4 py-2 border rounded mx-2 my-1 ${currentPlayerIndex === index ? 'bg-red-500 text-white' : 'bg-gray-200'}`}
           >
-            Download Now
+            Player {index + 1}
           </button>
-        ) : (
-          <>
-            <button
-              onClick={toggleAccordion}
-              className='animate-pulse bg-gradient-to-r from-pink-500 to-amber-500 font-bold py-3 px-6 rounded-lg shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300 text-2xl' 
-               style={{
-                // marginTop: '20px',
-                marginBottom: '20px'
-              }}
-            >
-              {accordionExpanded ? 'Click to Stop Download' : 'Download Now'}
-            </button>
-
-            {accordionExpanded && (
-              <>
-                <Script src='https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js'></Script>
-                    <lottie-player
-                      src='https://lottie.host/58d9c7ed-a39e-4cb6-b78a-e7cb1f9bf9cd/RHWR24wQSd.json'
-                      background='#D3D3D3'
-                      speed='1'
-                      style={{ width: '250px' }}
-                      loop
-                      autoplay
-                      direction='1'
-                      mode='normal'
-                    
-                    ></lottie-player>
-                {seconds > 0 ? (
-                  <p className='text-3xl font-bold mb-4' style={{ marginTop: '50px' }}>
-                    Your download link will be ready in {seconds} seconds...
-                  </p>
-                  
-                ) : (
-                  <p className='text-3xl font-bold mb-4' style={{ marginTop: '50px' }}>
-                    Your download link is ready.
-                  </p>
-                )}
-
-                <div
-                  style={{
-                    width: '100%',
-                    height: '450px',
-                    overflow: 'hidden',
-                    marginTop: '20px',
-                    marginBottom: '20px'
-                  }}
-                  className='rounded-xl flex border-1 border-blue-600 bg-black p-2 items-center justify-center'
-                >
-                  <div
-                    itemscope
-                    itemtype='https://schema.org/VideoObject'
-                    style={{ display: 'none' }}
-                  >
-                    <meta itemprop='name' content={movie.title} />
-                    <meta itemprop='description' content={movie.text} />
-                    <meta itemprop='uploadDate' content={movie.datePublished} />
-                    <meta itemprop='thumbnailUrl' content={movie.backimage} />
-                    <meta itemprop='duration' content='P34S' />
-                    <meta itemprop='embedUrl' content={movie.videourl} />
-                  </div>
-                  <iframe
-                    frameBorder='0'
-                    src={`https://geo.dailymotion.com/player/xkdl0.html?video=${movie.traileritem}&mute=true&Autoquality=1080p`}
-                    width='100%'
-                    height='100%'
-                    allowFullScreen
-                    title='Dailymotion Video Player'
-                    allow='autoplay; encrypted-media'
-                  ></iframe>
-                </div>
+        ))}
+      </div>
               
-                {seconds === 0 && (
-                  <div>
-                    {Object.keys(movie)
-                      .filter(key => key.startsWith('downloadlink'))
-                      .map((key, index) => (
-                        <Link
-                          key={index}
-                          href={movie[key]}
-                          target='_blank'
+              <p
+                className='px-0 bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-3xl hover:text-blue-800 font-bold mt-2'
+                style={{ fontFamily: 'Poppins, sans-serif' }}
+              >
+                Click to Download {movie.name}
+              </p>
+              <div className='flex flex-col items-center justify-center'></div>
+              {movie.mp3player && <MP3Player mp3Url={movie.mp3player} />}
+              <div
+                className='flex flex-col items-center justify-center'
+                style={{
+                  marginTop: '50px',
+                  marginBottom: '50px',
+                  filter:
+                    'contrast(1.1) saturate(1.1) brightness(1.0) hue-rotate(0deg)'
+                }}
+              >
+                {!showTimer ? (
+                  <button
+                    onClick={handleStartTimer}
+                    className='animate-pulse bg-gradient-to-r from-amber-500 to-pink-500 text-black font-bold py-3 px-6 rounded-lg shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300 text-2xl'
+                  >
+                    Download Now
+                  </button>
+                ) : (
+                  <>
+                    <button
+                      onClick={toggleAccordion}
+                      className='animate-pulse bg-gradient-to-r from-pink-500 to-amber-500 font-bold py-3 px-6 rounded-lg shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300 text-2xl'
+                      style={{
+                        // marginTop: '20px',
+                        marginBottom: '20px'
+                      }}
+                    >
+                      {accordionExpanded
+                        ? 'Click to Stop Download'
+                        : 'Download Now'}
+                    </button>
+
+                    {accordionExpanded && (
+                      <>
+                        <Script src='https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js'></Script>
+                        <lottie-player
+                          src='https://lottie.host/58d9c7ed-a39e-4cb6-b78a-e7cb1f9bf9cd/RHWR24wQSd.json'
+                          background='#D3D3D3'
+                          speed='1'
+                          style={{ width: '250px' }}
+                          loop
+                          autoplay
+                          direction='1'
+                          mode='normal'
+                        ></lottie-player>
+                        {seconds > 0 ? (
+                          <p
+                            className='text-3xl font-bold mb-4'
+                            style={{ marginTop: '50px' }}
+                          >
+                            Your download link will be ready in {seconds}{' '}
+                            seconds...
+                          </p>
+                        ) : (
+                          <p
+                            className='text-3xl font-bold mb-4'
+                            style={{ marginTop: '50px' }}
+                          >
+                            Your download link is ready.
+                          </p>
+                        )}
+
+                        <div
+                          style={{
+                            width: '100%',
+                            height: '450px',
+                            overflow: 'hidden',
+                            marginTop: '20px',
+                            marginBottom: '20px'
+                          }}
+                          className='rounded-xl flex border-1 border-blue-600 bg-black p-2 items-center justify-center'
                         >
                           <div
-                            className='bg-gradient-to-r from-amber-500 to-pink-500 text-white font-bold py-3 px-6 rounded-lg shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300'
-                            style={{
-                              margin: 'auto',
-                              marginBottom: '50px',
-                              borderRadius: '50px',
-                              boxShadow: '0 0 10px 0 #fff',
-                              filter: 'contrast(1.0) saturate(1.0) brightness(1.0) hue-rotate(0deg)'
-                            }}
+                            itemscope
+                            itemtype='https://schema.org/VideoObject'
+                            style={{ display: 'none' }}
                           >
-                            <span
-                             className= 'animate-pulse'
-                              style={{
-                                color: key === 'downloadlink1' ? '#FF0000' : '#0efa06',
-                                fontSize: '24px',
-                                textShadow: '3px 5px 5px #000'
-                              }}
-                            >
-                              <i
-                                className={
-                                  key === 'downloadlink1' ? 'fa fa-magnet' : 'fa fa-download'
-                                }
-                                aria-hidden='true'
-                              ></i>{' '}
-                            </span>
-                            Download Link {index + 1}
+                            <meta itemprop='name' content={movie.title} />
+                            <meta itemprop='description' content={movie.text} />
+                            <meta
+                              itemprop='uploadDate'
+                              content={movie.datePublished}
+                            />
+                            <meta
+                              itemprop='thumbnailUrl'
+                              content={movie.backimage}
+                            />
+                            <meta itemprop='duration' content='P34S' />
+                            <meta
+                              itemprop='embedUrl'
+                              content={movie.videourl}
+                            />
                           </div>
-                        </Link>
-                      ))}
-                  </div>
+                          <iframe
+                            frameBorder='0'
+                            src={`https://geo.dailymotion.com/player/xkdl0.html?video=${movie.traileritem}&mute=true&Autoquality=1080p`}
+                            width='100%'
+                            height='100%'
+                            allowFullScreen
+                            title='Dailymotion Video Player'
+                            allow='autoplay; encrypted-media'
+                            style={{
+                              boxShadow: '0 0 10px 0 #000',
+                              filter:
+                                'contrast(1.2) saturate(1.3) brightness(1.1) hue-rotate(15deg)'
+                            }}
+                          ></iframe>
+                        </div>
+
+                        {seconds === 0 && (
+                          <div>
+                            {Object.keys(movie)
+                              .filter(key => key.startsWith('downloadlink'))
+                              .map((key, index) => (
+                                <Link
+                                  key={index}
+                                  href={movie[key]}
+                                  target='_blank'
+                                >
+                                  <div
+                                    className='bg-gradient-to-r from-amber-500 to-pink-500 text-white font-bold py-3 px-6 rounded-lg shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300'
+                                    style={{
+                                      margin: 'auto',
+                                      marginBottom: '50px',
+                                      borderRadius: '50px',
+                                      boxShadow: '0 0 10px 0 #fff',
+                                      filter:
+                                        'contrast(1.0) saturate(1.0) brightness(1.0) hue-rotate(0deg)'
+                                    }}
+                                  >
+                                    <span
+                                      className='animate-pulse'
+                                      style={{
+                                        color:
+                                          key === 'downloadlink1'
+                                            ? '#FF0000'
+                                            : '#0efa06',
+                                        fontSize: '24px',
+                                        textShadow: '3px 5px 5px #000'
+                                      }}
+                                    >
+                                      <i
+                                        className={
+                                          key === 'downloadlink1'
+                                            ? 'fa fa-magnet'
+                                            : 'fa fa-download'
+                                        }
+                                        aria-hidden='true'
+                                      ></i>{' '}
+                                    </span>
+                                    Download Link {index + 1}
+                                  </div>
+                                </Link>
+                              ))}
+                          </div>
+                        )}
+                      </>
+                    )}
+                  </>
                 )}
-              </>
-            )}
-          </>
-        )}
-      </div>
+              </div>
+
               <Pagination
                 currentPage={currentPage}
                 totalPages={totalPages}
@@ -1171,7 +1238,7 @@ const moviesDetail = ({ movie }) => {
                     'contrast(1.0) saturate(1.0) brightness(1.0) hue-rotate(0deg)'
                 }}
               />
-                            <div className=' text-2xl font-semibold mt-2 px-0 bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent  hover:text-blue-800 '>
+              <div className=' text-2xl font-semibold mt-2 px-0 bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent  hover:text-blue-800 '>
                 See Below for Other Links to Watch Full Content.
                 <div className={`${HomeStyles.imageGrid} mt-5`}>
                   {linkTargets.map((link, idx) => (
@@ -1237,170 +1304,6 @@ const moviesDetail = ({ movie }) => {
                     'contrast(1.1) saturate(1.1) brightness(1.0) hue-rotate(0deg)'
                 }}
               />
-
-              {/* <div className='flex flex-col items-center justify-center'>
-                {movie.head2 && (
-                  <p className='bg-gradient-to-r from-amber-500 to-pink-500 font-bold py-3 px-6 rounded-lg shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300 text-bg text-black text-bg mt-2 text-3xl mb-2 items-center justify-center'>
-                    <strong>{movie.head2}</strong>
-                  </p>
-                )}
-
-                {movie.image2 && (
-                  <Image
-                    src={movie.image2}
-                    alt={movie.name}
-                    width={1280}
-                    height={720}
-                    quality={90}
-                    
-                    loading='lazy'
-                    style={{
-                      width: '800px', // Ensures the image is displayed at this width
-                      height: '400px', // Ensures the image is displayed at this height
-                      margin: 'auto',
-                      marginBottom: '20px',
-                      borderRadius: '50px',
-                      boxShadow: '0 0 10px 0 #fff',
-                      filter:
-                        'contrast(1.1) saturate(1.1) brightness(1.0) hue-rotate(0deg)'
-                    }}
-                  />
-                )}
-
-                {movie.image3 && (
-                  <Image
-                    src={movie.image3}
-                    alt={movie.name}
-                    width={1280}
-                    height={720}
-                    quality={90}
-                    
-                    loading='lazy'
-                    style={{
-                      width: '800px', // Ensures the image is displayed at this width
-                      height: '400px', // Ensures the image is displayed at this height
-                      margin: 'auto',
-                      marginBottom: '20px',
-                      borderRadius: '50px',
-                      boxShadow: '0 0 10px 0 #fff',
-                      filter:
-                        'contrast(1.1) saturate(1.1) brightness(1.0) hue-rotate(0deg)'
-                    }}
-                  />
-                )}
-
-                {movie.image4 && (
-                  <Image
-                    src={movie.image4}
-                    alt={movie.name}
-                    width={1280}
-                    height={720}
-                    quality={90}
-                    
-                    loading='lazy'
-                    style={{
-                      width: '800px', // Ensures the image is displayed at this width
-                      height: '400px', // Ensures the image is displayed at this height
-                      margin: 'auto',
-                      marginBottom: '20px',
-                      borderRadius: '50px',
-                      boxShadow: '0 0 10px 0 #fff',
-                      filter:
-                        'contrast(1.1) saturate(1.1) brightness(1.0) hue-rotate(0deg)'
-                    }}
-                  />
-                )}
-
-                {movie.image5 && (
-                  <Image
-                    src={movie.image5}
-                    alt={movie.name}
-                    width={1280}
-                    height={720}
-                    quality={90}
-                    
-                    loading='lazy'
-                    style={{
-                      width: '800px', // Ensures the image is displayed at this width
-                      height: '400px', // Ensures the image is displayed at this height
-                      margin: 'auto',
-                      marginBottom: '20px',
-                      borderRadius: '50px',
-                      boxShadow: '0 0 10px 0 #fff',
-                      filter:
-                        'contrast(1.1) saturate(1.1) brightness(1.0) hue-rotate(0deg)'
-                    }}
-                  />
-                )}
-
-                {movie.image6 && (
-                  <Image
-                    src={movie.image6}
-                    alt={movie.name}
-                    width={1280}
-                    height={720}
-                    quality={90}
-                    
-                    loading='lazy'
-                    style={{
-                      width: '800px', // Ensures the image is displayed at this width
-                      height: '400px', // Ensures the image is displayed at this height
-                      margin: 'auto',
-                      marginBottom: '20px',
-                      borderRadius: '50px',
-                      boxShadow: '0 0 10px 0 #fff',
-                      filter:
-                        'contrast(1.1) saturate(1.1) brightness(1.0) hue-rotate(0deg)'
-                    }}
-                  />
-                )}
-
-                {movie.image7 && (
-                  <Image
-                    src={movie.image7}
-                    alt={movie.name}
-                    width={1280}
-                    height={720}
-                    quality={90}
-                    
-                    loading='lazy'
-                    style={{
-                      width: '800px', // Ensures the image is displayed at this width
-                      height: '400px', // Ensures the image is displayed at this height
-                      margin: 'auto',
-                      marginBottom: '20px',
-                      borderRadius: '50px',
-                      boxShadow: '0 0 10px 0 #fff',
-                      filter:
-                        'contrast(1.1) saturate(1.1) brightness(1.0) hue-rotate(0deg)'
-                    }}
-                  />
-                )}
-
-                {movie.image8 && (
-                  <Image
-                    src={movie.image8}
-                    alt={movie.name}
-                    width={1280}
-                    height={720}
-                    quality={90}
-                    
-                    loading='lazy'
-                    style={{
-                      width: '800px', // Ensures the image is displayed at this width
-                      height: '400px', // Ensures the image is displayed at this height
-                      margin: 'auto',
-                      marginBottom: '20px',
-                      borderRadius: '50px',
-                      boxShadow: '0 0 10px 0 #fff',
-                      filter:
-                        'contrast(1.1) saturate(1.1) brightness(1.0) hue-rotate(0deg)'
-                    }}
-                  />
-                )}
-              </div> */}
-              {/* </div>
-  </div> */}
             </div>
           </div>
           <div className='sidebar'>
@@ -1430,7 +1333,7 @@ const moviesDetail = ({ movie }) => {
                           quality={90}
                           loading='lazy'
                           style={{
-                            marginTop:'50px',
+                            marginTop: '50px',
                             width: '1280px', // Ensures the image is displayed at this width
                             height: '350px', // Ensures the image is displayed at this height
                             boxShadow: '0 0 10px 0 #000',

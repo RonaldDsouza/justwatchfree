@@ -125,7 +125,8 @@ const tvshowDetail = ({ tvshow }) => {
     const linkTargets = [
       {
         text: 'Hierarchy Season 1 - 2024',
-        url: 'https://www.imdb.com/title/tt27763561/'
+         url: `https://www.imdb.com/title/${tvshow.imdb}/`
+     
       }
     ]
 
@@ -141,45 +142,55 @@ const tvshowDetail = ({ tvshow }) => {
   }
 
   const [currentEpisodeIndex, setCurrentEpisodeIndex] = useState(0)
-  const videoPlayerRef = useRef(null)
+  const [currentPlayerIndex, setCurrentPlayerIndex] = useState(0)
+  // Extract video item IDs for the current episode
+  const videoItems = tvshow.videotvitem
 
-  // Check if tvshow and videotvitem exist before accessing properties
-  const isTvShow = tvshow && tvshow.videotvitem && tvshow.videotvitem.length > 0
+  const parseVideoItem = item => {
+    const [id, season, episode] = item.split('/')
+    return { id, season: parseInt(season, 10), episode: parseInt(episode, 25) }
+  }
 
-  const handleNext = () => {
-    if (isTvShow && currentEpisodeIndex < tvshow.videotvitem.length - 1) {
+  const videoSources = tvshow.videotvshow.map(item => {
+    const { id, season, episode } = parseVideoItem(item)
+    return {
+      name: `Episode ${episode}`,
+      urls: [
+         `https://short.ink/${videoItems[currentEpisodeIndex]}`,
+        `https://vidsrc.me/embed/tv?imdb=${id}&season=${season}&episode=${episode}`,
+        `https://vidsrc.pro/embed/tv/${id}/${season}/${episode}`,
+        `https://vidsrc.cc/v2/embed/tv/${id}/${season}/${episode}`,
+        `https://www.2embed.cc/embedtv/${id}&s=${season}&e=${episode}`,
+        `https://autoembed.co/tv/imdb/${id}-${season}-${episode}`,
+        `https://multiembed.mov/directstream.php?video_id=${id}&s=${season}&e=${episode}`,
+       
+      ]
+    }
+  })
+
+  const handleNextEpisode = () => {
+    if (currentEpisodeIndex < videoSources.length - 1) {
       setCurrentEpisodeIndex(currentEpisodeIndex + 1)
-    } else if (isTvShow) {
-      setCurrentEpisodeIndex(0) // Loop back to the first episode
     }
   }
 
-  const handlePrevious = () => {
-    if (isTvShow && currentEpisodeIndex > 0) {
+  const handlePreviousEpisode = () => {
+    if (currentEpisodeIndex > 0) {
       setCurrentEpisodeIndex(currentEpisodeIndex - 1)
     }
   }
 
-  const parseVideoItem = item => {
-    if (!item) return { id: '', thumbnail: '' }
-    const [id, params] = item.split('?')
-    const thumbnail = new URLSearchParams(params).get('thumbnail')
-    return { id, thumbnail }
+  const handlePlayerSelect = index => {
+    setCurrentPlayerIndex(index)
   }
 
-  const currentVideoItem =
-    isTvShow && tvshow.videotvitem[currentEpisodeIndex]
-      ? parseVideoItem(tvshow.videotvitem[currentEpisodeIndex])
-      : { id: '', thumbnail: '' }
+  const currentVideoSources = videoSources[currentEpisodeIndex].urls
+  const src = currentVideoSources[currentPlayerIndex] || ''
+  const { episode } = parseVideoItem(tvshow.videotvshow[currentEpisodeIndex])
 
-  const movieVideoItem =
-    tvshow && tvshow.videotvshow && tvshow.videotvshow.length > 0
-      ? parseVideoItem(tvshow.videotvshow[0])
-      : { id: '', thumbnail: '' }
-
-  const src = isTvShow
-    ? `https://short.ink/${currentVideoItem.id}/?thumbnail=${currentVideoItem.thumbnail}`
-    : `https://short.ink/${movieVideoItem.id}/?thumbnail=${movieVideoItem.thumbnail}`
+  const episodeNumber = currentEpisodeIndex + 1;
+  const prevEpisodeNumber = currentEpisodeIndex === 0 ? videoSources.length : episodeNumber - 1;
+  const nextEpisodeNumber = episodeNumber % videoSources.length + 1;
 
   useEffect(() => {
     const detectMobileDevice = () => {
@@ -607,8 +618,6 @@ const tvshowDetail = ({ tvshow }) => {
       />
       <GoogleTranslate />
       <SocialSharing />
-      {/* <Script src='../../propler/ads.js' defer /> */}
-      {/* <Script src='../../propler/ads2.js' defer /> */}
 
       <div
         className={`w-full`}
@@ -805,6 +814,7 @@ const tvshowDetail = ({ tvshow }) => {
                     />
                   ))}
               </div>
+
               <div className={`${HomeStyles.imageGrid} mt-5`}>
                 <img
                   className={`${HomeStyles.image} img-fluid lazyload `}
@@ -903,13 +913,22 @@ const tvshowDetail = ({ tvshow }) => {
                   layout='responsive'
                 />
               </div>
-
-              <p
-                className='px-0 bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-4xl hover:text-blue-800 font-bold mt-2'
-                style={{ fontFamily: 'Poppins, sans-serif' }}
-              >
-                Watch Online {tvshow.name}
+              <p className='text-4xl font-bold text-center mb-4'>
+                Watch {tvshow.name}
               </p>
+
+              <div className='flex flex-col items-center mb-4'  style={{
+             marginBottom: '20px'
+          }}>
+              <button
+          onClick={handleNextEpisode}
+          disabled={videoSources.length === 0}
+          className='px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 ml-4 text-xl hover:text-green-600 font-bold mt-2'
+         
+        >
+          Next Episode {episode + 1 > videoSources.length ? 1 : episode + 1}
+        </button>
+              </div>
               <div
                 style={{
                   width: '100%',
@@ -919,31 +938,6 @@ const tvshowDetail = ({ tvshow }) => {
                 }}
                 className='rounded-xl mr-8 flex flex-col border-1 border-blue-600 bg-black p-2'
               >
-                {isTvShow && (
-                  <button
-                    onClick={handleNext}
-                    disabled={
-                      currentEpisodeIndex === tvshow.videotvitem.length - 1
-                    }
-                    style={{
-                      marginBottom: '10px',
-                      padding: '8px 16px',
-                      backgroundColor: '#51AFF7',
-                      color: 'white',
-                      border: 'none',
-                      cursor: 'pointer',
-                      borderRadius: '20px',
-                      fontWeight: 'bold',
-                      alignSelf: 'center'
-                    }}
-                  >
-                    Next - Episode{' '}
-                    {currentEpisodeIndex === tvshow.videotvitem.length - 1
-                      ? 1
-                      : currentEpisodeIndex + 2}
-                  </button>
-                )}
-
                 <iframe
                   frameBorder='0'
                   src={src}
@@ -952,58 +946,62 @@ const tvshowDetail = ({ tvshow }) => {
                   allowFullScreen
                   scrolling='0'
                   title='Video Player'
+                  className='mb-4'
                   style={{
                     filter:
-                      'contrast(1.2) saturate(1.3) brightness(1.1) hue-rotate(0deg)'
-                  }}
+                    'contrast(1.0) saturate(1.0) brightness(1.0) hue-rotate(0deg)'
+                }}
                 ></iframe>
-
-                <p className='text-black hover:px-0 text-bg font-black bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-sm'>
+                <p
+                  className='text-black hover:px-0 text-bg font-black bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-sm'
+                  style={{
+                    fontFamily: 'Poppins, sans-serif',
+                    textShadow: '1px 1px 1px 0 #fff',
+                    filter:
+                      'contrast(1.2) saturate(1.3) brightness(1.1) hue-rotate(15deg)'
+                  }}
+                >
                   *Note: Use Setting in Player to improve the Quality of video
                   to HD Quality 1080p.
                 </p>
-
-                {isTvShow && (
-                  <button
-                    onClick={handlePrevious}
-                    disabled={currentEpisodeIndex === 0}
-                    style={{
-                      marginTop: '10px',
-                      padding: '8px 16px',
-                      backgroundColor: '#32CD32',
-                      color: 'white',
-                      border: 'none',
-                      cursor: 'pointer',
-                      borderRadius: '20px',
-                      fontWeight: 'bold',
-                      alignSelf: 'center'
-                    }}
-                  >
-                    Prev - Episode{' '}
-                    {currentEpisodeIndex === 0
-                      ? tvshow.videotvitem.length
-                      : currentEpisodeIndex}
-                  </button>
-                )}
-
-                <img
-                  src={
-                    isTvShow
-                      ? currentVideoItem.thumbnail
-                      : movieVideoItem.thumbnail
-                  }
-                  alt='Video Thumbnail'
-                  style={{
-                    position: 'absolute',
-                    top: '2px',
-                    left: '10px',
-                    width: '100px',
-                    height: '56px',
-                    boxShadow: '0 0 10px 0 #fff',
-                    borderRadius: '10px'
-                  }}
-                />
               </div>
+              <div className='flex flex-col items-center mb-4'>
+              <button
+          onClick={handlePreviousEpisode}
+          disabled={videoSources.length === 0}
+          className='px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 text-xl hover:text-blue-600 font-bold mt-2'
+          style={{
+            marginTop: '10px',
+            marginBottom: '10px'
+          }}
+        >
+          Previous Episode {prevEpisodeNumber}
+        </button>
+              </div>
+              <p
+                className='px-0 bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-4xl hover:text-blue-800 font-bold mt-2'
+                style={{ fontFamily: 'Poppins, sans-serif' }}
+              >
+                Select Player To Watch.
+              </p>
+              <div className='flex flex-col items-center mt-4 gap-2'>
+              <div className='flex flex-wrap justify-center mb-4'>
+              {currentVideoSources.map((source, index) => (
+                  <button
+                    key={index}
+                    onClick={() => handlePlayerSelect(index)}
+                    className={`px-4 py-2 border rounded mx-2 my-1 ${
+                      currentPlayerIndex === index
+                        ? 'bg-red-500 text-white'
+                        : 'bg-gray-200'
+                    }`}
+                  >
+                    Player {index + 1}
+                  </button>
+                ))}
+              </div> 
+              </div>
+  
               <p
                 className='px-0 bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-3xl hover:text-blue-800 font-bold mt-2'
                 style={{ fontFamily: 'Poppins, sans-serif' }}
@@ -1178,7 +1176,7 @@ const tvshowDetail = ({ tvshow }) => {
                   marginTop: '50px',
                   marginBottom: '50px',
                   borderRadius: '50px',
-                  boxShadow: '0 0 10px 0 #fff',
+                  boxShadow: '0 0 10px 0 #000',
                   filter:
                     'contrast(1.0) saturate(1.0) brightness(1.0) hue-rotate(0deg)'
                 }}
@@ -1197,13 +1195,11 @@ const tvshowDetail = ({ tvshow }) => {
                         // target='_blank'
                         // rel='noopener noreferrer'
                       >
-                        <Image
+                        <img
                           className={`${HomeStyles.image} img-fluid lazyload`}
                           src={link.image}
                           alt={link.name}
                           title={link.name}
-                          width={1280}
-                          height={720}
                           style={{
                             width: '200px',
                             height: '200px',
@@ -1270,7 +1266,7 @@ const tvshowDetail = ({ tvshow }) => {
                   <div key={tvshow.id} className='cardlatest'>
                     <a href={tvshow['tvshow.watch']} id={tvshow.id}>
                       <div className='relative'>
-                        <Image
+                        <img
                           src={tvshow.image}
                           alt={tvshow.title}
                           className='rounded-lg mx-auto'

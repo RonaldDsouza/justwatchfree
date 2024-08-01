@@ -125,7 +125,8 @@ const tvshowDetail = ({ tvshow }) => {
     const linkTargets = [
       {
         text: 'CSI: Vegas Season 1 - 2024',
-        url: 'https://www.imdb.com/title/tt12887536/'
+         url: `https://www.imdb.com/title/${tvshow.imdb}/`
+     
       }
     ]
 
@@ -155,13 +156,14 @@ const tvshowDetail = ({ tvshow }) => {
     return {
       name: `Episode ${episode}`,
       urls: [
+         `https://short.ink/${videoItems[currentEpisodeIndex]}`,
         `https://vidsrc.me/embed/tv?imdb=${id}&season=${season}&episode=${episode}`,
         `https://vidsrc.pro/embed/tv/${id}/${season}/${episode}`,
         `https://vidsrc.cc/v2/embed/tv/${id}/${season}/${episode}`,
         `https://www.2embed.cc/embedtv/${id}&s=${season}&e=${episode}`,
         `https://autoembed.co/tv/imdb/${id}-${season}-${episode}`,
         `https://multiembed.mov/directstream.php?video_id=${id}&s=${season}&e=${episode}`,
-        `https://short.ink/${videoItems[currentEpisodeIndex]}`
+       
       ]
     }
   })
@@ -921,7 +923,7 @@ const tvshowDetail = ({ tvshow }) => {
               <button
           onClick={handleNextEpisode}
           disabled={videoSources.length === 0}
-          className='px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 ml-4'
+          className='px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 ml-4 text-xl hover:text-green-600 font-bold mt-2'
          
         >
           Next Episode {episode + 1 > videoSources.length ? 1 : episode + 1}
@@ -945,6 +947,10 @@ const tvshowDetail = ({ tvshow }) => {
                   scrolling='0'
                   title='Video Player'
                   className='mb-4'
+                  style={{
+                    filter:
+                    'contrast(1.0) saturate(1.0) brightness(1.0) hue-rotate(0deg)'
+                }}
                 ></iframe>
                 <p
                   className='text-black hover:px-0 text-bg font-black bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-sm'
@@ -963,18 +969,24 @@ const tvshowDetail = ({ tvshow }) => {
               <button
           onClick={handlePreviousEpisode}
           disabled={videoSources.length === 0}
-          className='px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600'
+          className='px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 text-xl hover:text-blue-600 font-bold mt-2'
           style={{
             marginTop: '10px',
-            marginBottom: '20px'
+            marginBottom: '10px'
           }}
         >
           Previous Episode {prevEpisodeNumber}
         </button>
               </div>
-
+              <p
+                className='px-0 bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-4xl hover:text-blue-800 font-bold mt-2'
+                style={{ fontFamily: 'Poppins, sans-serif' }}
+              >
+                Select Player To Watch.
+              </p>
+              <div className='flex flex-col items-center mt-4 gap-2'>
               <div className='flex flex-wrap justify-center mb-4'>
-                {currentVideoSources.map((source, index) => (
+              {currentVideoSources.map((source, index) => (
                   <button
                     key={index}
                     onClick={() => handlePlayerSelect(index)}
@@ -987,8 +999,9 @@ const tvshowDetail = ({ tvshow }) => {
                     Player {index + 1}
                   </button>
                 ))}
+              </div> 
               </div>
-
+  
               <p
                 className='px-0 bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-3xl hover:text-blue-800 font-bold mt-2'
                 style={{ fontFamily: 'Poppins, sans-serif' }}
@@ -1163,7 +1176,7 @@ const tvshowDetail = ({ tvshow }) => {
                   marginTop: '50px',
                   marginBottom: '50px',
                   borderRadius: '50px',
-                  boxShadow: '0 0 10px 0 #fff',
+                  boxShadow: '0 0 10px 0 #000',
                   filter:
                     'contrast(1.0) saturate(1.0) brightness(1.0) hue-rotate(0deg)'
                 }}

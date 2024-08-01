@@ -54,6 +54,7 @@ class MyDocument extends Document {
             rel='canonical'
             href='https://justwatchfree.vercel.app/'
           /> */}
+                
           <meta property='og:locale' content='en_US' />
           <meta property='og:type' content='website' />
           <meta

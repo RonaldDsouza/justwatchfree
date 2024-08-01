@@ -6,7 +6,7 @@ import adultData from '../../../public/adult.json'
 import trailersData from '../../../public/trailers.json'
 import latestData from '../../../public/latest.json'
 import GoogleTranslate from '../../../components/GoogleTranslate'
-import SocialSharing from '../../../components/SocialSharing';
+import SocialSharing from '../../../components/SocialSharing'
 import { useEffect, useState, useRef } from 'react'
 import Pagination from '../../../components/Pagination'
 import Head from 'next/head'
@@ -42,7 +42,7 @@ const tvshowDetail = ({ tvshow }) => {
   const [playerReady, setPlayerReady] = useState(false)
   const [showTimer, setShowTimer] = useState(false)
   const [seconds, setSeconds] = useState(30) // Example timer duration
-  const [accordionExpanded, setAccordionExpanded] = useState(false);
+  const [accordionExpanded, setAccordionExpanded] = useState(false)
   const [isMobileDevice, setIsMobileDevice] = useState(false)
   const playerRef = useRef(null)
   const currentIndexRef = useRef(0)
@@ -124,8 +124,9 @@ const tvshowDetail = ({ tvshow }) => {
   const enhancedParagraph = text => {
     const linkTargets = [
       {
-        text: 'Fringe Season 4 - 2012',
-        url: 'https://www.imdb.com/title/vi80985369/'
+        text: 'Fringe Season 4 - 2024',
+         url: `https://www.imdb.com/title/${tvshow.imdb}/`
+     
       }
     ]
 
@@ -141,45 +142,55 @@ const tvshowDetail = ({ tvshow }) => {
   }
 
   const [currentEpisodeIndex, setCurrentEpisodeIndex] = useState(0)
-  const videoPlayerRef = useRef(null)
+  const [currentPlayerIndex, setCurrentPlayerIndex] = useState(0)
+  // Extract video item IDs for the current episode
+  const videoItems = tvshow.videotvitem
 
-  // Check if tvshow and videotvitem exist before accessing properties
-  const isTvShow = tvshow && tvshow.videotvitem && tvshow.videotvitem.length > 0
+  const parseVideoItem = item => {
+    const [id, season, episode] = item.split('/')
+    return { id, season: parseInt(season, 10), episode: parseInt(episode, 25) }
+  }
 
-  const handleNext = () => {
-    if (isTvShow && currentEpisodeIndex < tvshow.videotvitem.length - 1) {
+  const videoSources = tvshow.videotvshow.map(item => {
+    const { id, season, episode } = parseVideoItem(item)
+    return {
+      name: `Episode ${episode}`,
+      urls: [
+         `https://short.ink/${videoItems[currentEpisodeIndex]}`,
+        `https://vidsrc.me/embed/tv?imdb=${id}&season=${season}&episode=${episode}`,
+        `https://vidsrc.pro/embed/tv/${id}/${season}/${episode}`,
+        `https://vidsrc.cc/v2/embed/tv/${id}/${season}/${episode}`,
+        `https://www.2embed.cc/embedtv/${id}&s=${season}&e=${episode}`,
+        `https://autoembed.co/tv/imdb/${id}-${season}-${episode}`,
+        `https://multiembed.mov/directstream.php?video_id=${id}&s=${season}&e=${episode}`,
+       
+      ]
+    }
+  })
+
+  const handleNextEpisode = () => {
+    if (currentEpisodeIndex < videoSources.length - 1) {
       setCurrentEpisodeIndex(currentEpisodeIndex + 1)
-    } else if (isTvShow) {
-      setCurrentEpisodeIndex(0) // Loop back to the first episode
     }
   }
 
-  const handlePrevious = () => {
-    if (isTvShow && currentEpisodeIndex > 0) {
+  const handlePreviousEpisode = () => {
+    if (currentEpisodeIndex > 0) {
       setCurrentEpisodeIndex(currentEpisodeIndex - 1)
     }
   }
 
-  const parseVideoItem = item => {
-    if (!item) return { id: '', thumbnail: '' }
-    const [id, params] = item.split('?')
-    const thumbnail = new URLSearchParams(params).get('thumbnail')
-    return { id, thumbnail }
+  const handlePlayerSelect = index => {
+    setCurrentPlayerIndex(index)
   }
 
-  const currentVideoItem =
-    isTvShow && tvshow.videotvitem[currentEpisodeIndex]
-      ? parseVideoItem(tvshow.videotvitem[currentEpisodeIndex])
-      : { id: '', thumbnail: '' }
+  const currentVideoSources = videoSources[currentEpisodeIndex].urls
+  const src = currentVideoSources[currentPlayerIndex] || ''
+  const { episode } = parseVideoItem(tvshow.videotvshow[currentEpisodeIndex])
 
-  const movieVideoItem =
-    tvshow && tvshow.videotvshow && tvshow.videotvshow.length > 0
-      ? parseVideoItem(tvshow.videotvshow[0])
-      : { id: '', thumbnail: '' }
-
-  const src = isTvShow
-    ? `https://short.ink/${currentVideoItem.id}/?thumbnail=${currentVideoItem.thumbnail}`
-    : `https://short.ink/${movieVideoItem.id}/?thumbnail=${movieVideoItem.thumbnail}`
+  const episodeNumber = currentEpisodeIndex + 1;
+  const prevEpisodeNumber = currentEpisodeIndex === 0 ? videoSources.length : episodeNumber - 1;
+  const nextEpisodeNumber = episodeNumber % videoSources.length + 1;
 
   useEffect(() => {
     const detectMobileDevice = () => {
@@ -214,28 +225,27 @@ const tvshowDetail = ({ tvshow }) => {
   }, [router.events])
 
   useEffect(() => {
-    let timer;
+    let timer
     if (showTimer && accordionExpanded && seconds > 0) {
       timer = setInterval(() => {
-        setSeconds(prevSeconds => (prevSeconds > 0 ? prevSeconds - 1 : 0));
-      }, 1000);
+        setSeconds(prevSeconds => (prevSeconds > 0 ? prevSeconds - 1 : 0))
+      }, 1000)
     }
-    return () => clearInterval(timer);
-  }, [showTimer, accordionExpanded, seconds]);
+    return () => clearInterval(timer)
+  }, [showTimer, accordionExpanded, seconds])
 
   const toggleAccordion = () => {
-    setAccordionExpanded(prevState => !prevState);
+    setAccordionExpanded(prevState => !prevState)
     if (!accordionExpanded) {
-      setSeconds(30); // Reset the timer when accordion is expanded
+      setSeconds(30) // Reset the timer when accordion is expanded
     }
-  };
+  }
 
   const handleStartTimer = () => {
-    setShowTimer(true);
-    setAccordionExpanded(true);
-  };
+    setShowTimer(true)
+    setAccordionExpanded(true)
+  }
 
-  
   const uwatchfreeSchema = JSON.stringify([
     {
       '@context': 'https://schema.org',
@@ -506,7 +516,7 @@ const tvshowDetail = ({ tvshow }) => {
           name='robots'
           content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'
         />
-        <title>Watch Fringe Season 4 (2012) | JWF™</title>
+        <title>Watch Fringe Season 4 (2024) | JWF™</title>
         <link rel='canonical' href={tvshow && tvshow.siteurl} />
         <meta name='robots' content='index, follow' />
         <meta name='googlebot' content='index,follow' />
@@ -517,10 +527,7 @@ const tvshowDetail = ({ tvshow }) => {
         <meta property='og:video:width' content='1280px' />
         <meta property='og:video:height' content='720px' />
         <meta property='og:video:type' content='video/mp4' />
-        <meta
-          property='og:title'
-          content={`${tvshow && tvshow.name} - JWF™`}
-        />
+        <meta property='og:title' content={`${tvshow && tvshow.name} - JWF™`} />
         <meta
           property='og:description'
           content='Just Watch Free™ - Explore. Discover. Online. Stream online HD movies with Google Translate for access in any language, worldwide.'
@@ -540,8 +547,8 @@ const tvshowDetail = ({ tvshow }) => {
         />
         <meta property='og:image' content={`${tvshow && tvshow.image1}`} />
 
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
+        <meta property='og:image:width' content='1200' />
+        <meta property='og:image:height' content='630' />
         <meta property='og:image:type' content='image/webp' />
         <meta name='twitter:card' content='summary_large_image' />
         <meta name='twitter:label1' content='Est. reading time' />
@@ -594,8 +601,8 @@ const tvshowDetail = ({ tvshow }) => {
         />
       </Head>
       <Script
-            dangerouslySetInnerHTML={{
-              __html: `
+        dangerouslySetInnerHTML={{
+          __html: `
             (function (w, d, s, id) {
               if (typeof (w.webpushr) !== 'undefined') return;
               w.webpushr = w.webpushr |function () { (w.webpushr.q = w.webpushr.q |[]).push(arguments) };
@@ -607,12 +614,10 @@ const tvshowDetail = ({ tvshow }) => {
 
             webpushr('setup', { 'key': 'BDeLBmbVL39XWa_fEU4TTZ5OFjYr0zLf_PZN6CLLEtCdxOsDYdH6TIWC1ltmT8A4QdXsd8zVbN3izqMFubKPW_k' });
           `
-            }}
-          />
+        }}
+      />
       <GoogleTranslate />
- <SocialSharing />
-      {/* <Script src='../../propler/ads.js' defer /> */}
-      {/* <Script src='../../propler/ads2.js' defer /> */}
+      <SocialSharing />
 
       <div
         className={`w-full`}
@@ -773,26 +778,6 @@ const tvshowDetail = ({ tvshow }) => {
             <div
               style={{ maxWidth: '800px', width: '100%', marginBottom: '20px' }}
             >
-              {/* <div
-                className='flex flex-col items-center justify-center'
-                style={{
-                  maxWidth: '800px',
-                  width: '100%',
-                  marginBottom: '20px'
-                }}
-              >
-                <h2
-                  className='text-black bg-gradient-to-r from-pink-500 to-amber-500 font-bold py-3 px-6 rounded-lg shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300 text-2xl'
-                  style={{
-                    fontFamily: 'Poppins, sans-serif',
-                    fontWeight: 'bold',
-                    marginBottom: '12px'
-                  }}
-                >
-                  {tvshow.title}
-                </h2>
-              </div> */}
-
               <p className='text-black text-bg font-semibold mt-2'>
                 Genre: {tvshow.genre}
               </p>
@@ -829,39 +814,6 @@ const tvshowDetail = ({ tvshow }) => {
                     />
                   ))}
               </div>
-              {/* <div className='text-black text-bg font-semibold mt-2'>
-      Below are more Other Links to Watch Full Movie content.
-      <div className={`${HomeStyles.imageGrid} mt-5`}>
-        {linkTargets.map((link, idx) => (
-            <div key={idx} className='description text-black text-xl font-semibold mt-2' style={{ margin: '10px', textAlign: 'center' }}>
-            <a
-              href={link.siteurl}
-              className='text-blue-500 underline'
-              target='_blank'
-              rel='noopener noreferrer'
-            >
-              {link.name}
-          
-             <img
-              className={`${HomeStyles.image} img-fluid lazyload`}
-              src={link.image}
-              alt={link.name}
-              title={link.name}
-              style={{
-                width: '200px',
-                height: '200px',
-                objectFit: 'cover',
-                boxShadow: '0 0 10px 0 #000', // Shadow effect with black color
-                filter: 'contrast(1.2) saturate(1.3) brightness(1.1) hue-rotate(0deg)',
-                marginBottom: '10px' // Adds space between image and text
-              }}
-              loading='lazy'
-            />
-              </a>
-          </div>
-        ))}
-      </div>
-    </div> */}
 
               <div className={`${HomeStyles.imageGrid} mt-5`}>
                 <img
@@ -961,13 +913,22 @@ const tvshowDetail = ({ tvshow }) => {
                   layout='responsive'
                 />
               </div>
-
-              <p
-                className='px-0 bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-4xl hover:text-blue-800 font-bold mt-2'
-                style={{ fontFamily: 'Poppins, sans-serif' }}
-              >
-                Watch Online {tvshow.name}
+              <p className='text-4xl font-bold text-center mb-4'>
+                Watch {tvshow.name}
               </p>
+
+              <div className='flex flex-col items-center mb-4'  style={{
+             marginBottom: '20px'
+          }}>
+              <button
+          onClick={handleNextEpisode}
+          disabled={videoSources.length === 0}
+          className='px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 ml-4 text-xl hover:text-green-600 font-bold mt-2'
+         
+        >
+          Next Episode {episode + 1 > videoSources.length ? 1 : episode + 1}
+        </button>
+              </div>
               <div
                 style={{
                   width: '100%',
@@ -977,31 +938,6 @@ const tvshowDetail = ({ tvshow }) => {
                 }}
                 className='rounded-xl mr-8 flex flex-col border-1 border-blue-600 bg-black p-2'
               >
-                {isTvShow && (
-                  <button
-                    onClick={handleNext}
-                    disabled={
-                      currentEpisodeIndex === tvshow.videotvitem.length - 1
-                    }
-                    style={{
-                      marginBottom: '10px',
-                      padding: '8px 16px',
-                      backgroundColor: '#51AFF7',
-                      color: 'white',
-                      border: 'none',
-                      cursor: 'pointer',
-                      borderRadius: '20px',
-                      fontWeight: 'bold',
-                      alignSelf: 'center'
-                    }}
-                  >
-                    Next - Episode{' '}
-                    {currentEpisodeIndex === tvshow.videotvitem.length - 1
-                      ? 1
-                      : currentEpisodeIndex + 2}
-                  </button>
-                )}
-
                 <iframe
                   frameBorder='0'
                   src={src}
@@ -1010,198 +946,228 @@ const tvshowDetail = ({ tvshow }) => {
                   allowFullScreen
                   scrolling='0'
                   title='Video Player'
+                  className='mb-4'
                   style={{
                     filter:
-                      'contrast(1.2) saturate(1.3) brightness(1.1) hue-rotate(0deg)'
-                  }}
+                    'contrast(1.0) saturate(1.0) brightness(1.0) hue-rotate(0deg)'
+                }}
                 ></iframe>
-
-                <p className='text-black hover:px-0 text-bg font-black bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-sm'>
+                <p
+                  className='text-black hover:px-0 text-bg font-black bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-sm'
+                  style={{
+                    fontFamily: 'Poppins, sans-serif',
+                    textShadow: '1px 1px 1px 0 #fff',
+                    filter:
+                      'contrast(1.2) saturate(1.3) brightness(1.1) hue-rotate(15deg)'
+                  }}
+                >
                   *Note: Use Setting in Player to improve the Quality of video
                   to HD Quality 1080p.
                 </p>
-
-                {isTvShow && (
-                  <button
-                    onClick={handlePrevious}
-                    disabled={currentEpisodeIndex === 0}
-                    style={{
-                      marginTop: '10px',
-                      padding: '8px 16px',
-                      backgroundColor: '#32CD32',
-                      color: 'white',
-                      border: 'none',
-                      cursor: 'pointer',
-                      borderRadius: '20px',
-                      fontWeight: 'bold',
-                      alignSelf: 'center'
-                    }}
-                  >
-                    Prev - Episode{' '}
-                    {currentEpisodeIndex === 0
-                      ? tvshow.videotvitem.length
-                      : currentEpisodeIndex}
-                  </button>
-                )}
-
-                <img
-                  src={
-                    isTvShow
-                      ? currentVideoItem.thumbnail
-                      : movieVideoItem.thumbnail
-                  }
-                  alt='Video Thumbnail'
-                  style={{
-                    position: 'absolute',
-                    top: '2px',
-                    left: '10px',
-                    width: '100px',
-                    height: '56px',
-                    boxShadow: '0 0 10px 0 #fff',
-                    borderRadius: '10px'
-                  }}
-                />
+              </div>
+              <div className='flex flex-col items-center mb-4'>
+              <button
+          onClick={handlePreviousEpisode}
+          disabled={videoSources.length === 0}
+          className='px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 text-xl hover:text-blue-600 font-bold mt-2'
+          style={{
+            marginTop: '10px',
+            marginBottom: '10px'
+          }}
+        >
+          Previous Episode {prevEpisodeNumber}
+        </button>
               </div>
               <p
-        className='px-0 bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-3xl hover:text-blue-800 font-bold mt-2'
-        style={{ fontFamily: 'Poppins, sans-serif' }}
-      >
-        Click to Download Episode {tvshow.name}
-      </p>
-      <div className='flex flex-col items-center justify-center'></div>
-      {tvshow.mp3player && <MP3Player mp3Url={tvshow.mp3player} />}
-      <div
-        className='flex flex-col items-center justify-center'
-        style={{
-          marginTop: '50px',
-          marginBottom: '50px',
-          filter: 'contrast(1.1) saturate(1.1) brightness(1.0) hue-rotate(0deg)'
-        }}
-      >
-        {!showTimer ? (
-          <button
-            onClick={handleStartTimer}
-            className='animate-pulse bg-gradient-to-r from-amber-500 to-pink-500 text-black font-bold py-3 px-6 rounded-lg shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300 text-2xl'
-          >
-            Download Now
-          </button>
-        ) : (
-          <>
-            <button
-              onClick={toggleAccordion}
-              className='animate-pulse bg-gradient-to-r from-pink-500 to-amber-500 font-bold py-3 px-6 rounded-lg shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300 text-2xl' 
-               style={{
-                // marginTop: '20px',
-                marginBottom: '20px'
-              }}
-            >
-              {accordionExpanded ? 'Click to Stop Download' : 'Download Now'}
-            </button>
-
-            {accordionExpanded && (
-              <>
-                <Script src='https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js'></Script>
-                    <lottie-player
-                      src='https://lottie.host/58d9c7ed-a39e-4cb6-b78a-e7cb1f9bf9cd/RHWR24wQSd.json'
-                      background='#D3D3D3'
-                      speed='1'
-                      style={{ width: '250px' }}
-                      loop
-                      autoplay
-                      direction='1'
-                      mode='normal'
-                    
-                    ></lottie-player>
-                {seconds > 0 ? (
-                  <p className='text-3xl font-bold mb-4'  style={{ marginTop: '50px' }}>
-                    Your download link will be ready in {seconds} seconds...
-                  </p>
-                  
-                ) : (
-                  <p className='text-3xl font-bold mb-4'  style={{ marginTop: '50px' }}>
-                    Your download links is ready.
-                  </p>
-                )}
-
-                <div
-                  style={{
-                    width: '100%',
-                    height: '450px',
-                    overflow: 'hidden',
-                    marginTop: '20px',
-                    marginBottom: '20px'
-                  }}
-                  className='rounded-xl flex border-1 border-blue-600 bg-black p-2 items-center justify-center'
-                >
-                  <div
-                    itemscope
-                    itemtype='https://schema.org/VideoObject'
-                    style={{ display: 'none' }}
+                className='px-0 bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-4xl hover:text-blue-800 font-bold mt-2'
+                style={{ fontFamily: 'Poppins, sans-serif' }}
+              >
+                Select Player To Watch.
+              </p>
+              <div className='flex flex-col items-center mt-4 gap-2'>
+              <div className='flex flex-wrap justify-center mb-4'>
+              {currentVideoSources.map((source, index) => (
+                  <button
+                    key={index}
+                    onClick={() => handlePlayerSelect(index)}
+                    className={`px-4 py-2 border rounded mx-2 my-1 ${
+                      currentPlayerIndex === index
+                        ? 'bg-red-500 text-white'
+                        : 'bg-gray-200'
+                    }`}
                   >
-                    <meta itemprop='name' content={tvshow.title} />
-                    <meta itemprop='description' content={tvshow.text} />
-                    <meta itemprop='uploadDate' content={tvshow.datePublished} />
-                    <meta itemprop='thumbnailUrl' content={tvshow.backimage} />
-                    <meta itemprop='duration' content='P34S' />
-                    <meta itemprop='embedUrl' content={tvshow.videourl} />
-                  </div>
-                  <iframe
-                    frameBorder='0'
-                    src={`https://geo.dailymotion.com/player/xkdl0.html?video=${tvshow.traileritem}&mute=true&Autoquality=1080p`}
-                    width='100%'
-                    height='100%'
-                    allowFullScreen
-                    title='Dailymotion Video Player'
-                    allow='autoplay; encrypted-media'
-                  ></iframe>
-                </div>
-              
-                {seconds === 0 && (
-                  <div>
-                    {Object.keys(tvshow)
-                      .filter(key => key.startsWith('downloadlink'))
-                      .map((key, index) => (
-                        <Link
-                          key={index}
-                          href={tvshow[key]}
-                          target='_blank'
+                    Player {index + 1}
+                  </button>
+                ))}
+              </div> 
+              </div>
+  
+              <p
+                className='px-0 bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-3xl hover:text-blue-800 font-bold mt-2'
+                style={{ fontFamily: 'Poppins, sans-serif' }}
+              >
+                Click to Download Episode {tvshow.name}
+              </p>
+              <div className='flex flex-col items-center justify-center'></div>
+              {tvshow.mp3player && <MP3Player mp3Url={tvshow.mp3player} />}
+              <div
+                className='flex flex-col items-center justify-center'
+                style={{
+                  marginTop: '50px',
+                  marginBottom: '50px',
+                  filter:
+                    'contrast(1.1) saturate(1.1) brightness(1.0) hue-rotate(0deg)'
+                }}
+              >
+                {!showTimer ? (
+                  <button
+                    onClick={handleStartTimer}
+                    className='animate-pulse bg-gradient-to-r from-amber-500 to-pink-500 text-black font-bold py-3 px-6 rounded-lg shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300 text-2xl'
+                  >
+                    Download Now
+                  </button>
+                ) : (
+                  <>
+                    <button
+                      onClick={toggleAccordion}
+                      className='animate-pulse bg-gradient-to-r from-pink-500 to-amber-500 font-bold py-3 px-6 rounded-lg shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300 text-2xl'
+                      style={{
+                        // marginTop: '20px',
+                        marginBottom: '20px'
+                      }}
+                    >
+                      {accordionExpanded
+                        ? 'Click to Stop Download'
+                        : 'Download Now'}
+                    </button>
+
+                    {accordionExpanded && (
+                      <>
+                        <Script src='https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js'></Script>
+                        <lottie-player
+                          src='https://lottie.host/58d9c7ed-a39e-4cb6-b78a-e7cb1f9bf9cd/RHWR24wQSd.json'
+                          background='#D3D3D3'
+                          speed='1'
+                          style={{ width: '250px' }}
+                          loop
+                          autoplay
+                          direction='1'
+                          mode='normal'
+                        ></lottie-player>
+                        {seconds > 0 ? (
+                          <p
+                            className='text-3xl font-bold mb-4'
+                            style={{ marginTop: '50px' }}
+                          >
+                            Your download link will be ready in {seconds}{' '}
+                            seconds...
+                          </p>
+                        ) : (
+                          <p
+                            className='text-3xl font-bold mb-4'
+                            style={{ marginTop: '50px' }}
+                          >
+                            Your download links is ready.
+                          </p>
+                        )}
+
+                        <div
+                          style={{
+                            width: '100%',
+                            height: '450px',
+                            overflow: 'hidden',
+                            marginTop: '20px',
+                            marginBottom: '20px'
+                          }}
+                          className='rounded-xl flex border-1 border-blue-600 bg-black p-2 items-center justify-center'
                         >
                           <div
-                            className='bg-gradient-to-r from-amber-500 to-pink-500 text-white font-bold py-3 px-6 rounded-lg shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300'
-                            style={{
-                              margin: 'auto',
-                              marginBottom: '50px',
-                              borderRadius: '50px',
-                              boxShadow: '0 0 10px 0 #fff',
-                              filter: 'contrast(1.0) saturate(1.0) brightness(1.0) hue-rotate(0deg)'
-                            }}
+                            itemscope
+                            itemtype='https://schema.org/VideoObject'
+                            style={{ display: 'none' }}
                           >
-                           <span
-                             className= 'animate-pulse'
-                              style={{
-                                color: key === 'downloadlink1' ? '#FF0000' : '#0efa06',
-                                fontSize: '24px',
-                                textShadow: '3px 5px 5px #000'
-                              }}
-                            >
-                              <i
-                                className={
-                                  key === 'downloadlink1' ? 'fa fa-magnet' : 'fa fa-download'
-                                }
-                                aria-hidden='true'
-                              ></i>{' '}
-                            </span>
-                            Download Episode {index + 1}
+                            <meta itemprop='name' content={tvshow.title} />
+                            <meta
+                              itemprop='description'
+                              content={tvshow.text}
+                            />
+                            <meta
+                              itemprop='uploadDate'
+                              content={tvshow.datePublished}
+                            />
+                            <meta
+                              itemprop='thumbnailUrl'
+                              content={tvshow.backimage}
+                            />
+                            <meta itemprop='duration' content='P34S' />
+                            <meta
+                              itemprop='embedUrl'
+                              content={tvshow.videourl}
+                            />
                           </div>
-                        </Link>
-                      ))}
-                  </div>
+                          <iframe
+                            frameBorder='0'
+                            src={`https://geo.dailymotion.com/player/xkdl0.html?video=${tvshow.traileritem}&mute=true&Autoquality=1080p`}
+                            width='100%'
+                            height='100%'
+                            allowFullScreen
+                            title='Dailymotion Video Player'
+                            allow='autoplay; encrypted-media'
+                          ></iframe>
+                        </div>
+
+                        {seconds === 0 && (
+                          <div>
+                            {Object.keys(tvshow)
+                              .filter(key => key.startsWith('downloadlink'))
+                              .map((key, index) => (
+                                <Link
+                                  key={index}
+                                  href={tvshow[key]}
+                                  target='_blank'
+                                >
+                                  <div
+                                    className='bg-gradient-to-r from-amber-500 to-pink-500 text-white font-bold py-3 px-6 rounded-lg shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300'
+                                    style={{
+                                      margin: 'auto',
+                                      marginBottom: '50px',
+                                      borderRadius: '50px',
+                                      boxShadow: '0 0 10px 0 #fff',
+                                      filter:
+                                        'contrast(1.0) saturate(1.0) brightness(1.0) hue-rotate(0deg)'
+                                    }}
+                                  >
+                                    <span
+                                      className='animate-pulse'
+                                      style={{
+                                        color:
+                                          key === 'downloadlink1'
+                                            ? '#FF0000'
+                                            : '#0efa06',
+                                        fontSize: '24px',
+                                        textShadow: '3px 5px 5px #000'
+                                      }}
+                                    >
+                                      <i
+                                        className={
+                                          key === 'downloadlink1'
+                                            ? 'fa fa-magnet'
+                                            : 'fa fa-download'
+                                        }
+                                        aria-hidden='true'
+                                      ></i>{' '}
+                                    </span>
+                                    Download Episode {index + 1}
+                                  </div>
+                                </Link>
+                              ))}
+                          </div>
+                        )}
+                      </>
+                    )}
+                  </>
                 )}
-              </>
-            )}
-          </>
-        )}
-      </div>
+              </div>
               <Pagination
                 currentPage={currentPage}
                 totalPages={totalPages}
@@ -1210,7 +1176,7 @@ const tvshowDetail = ({ tvshow }) => {
                   marginTop: '50px',
                   marginBottom: '50px',
                   borderRadius: '50px',
-                  boxShadow: '0 0 10px 0 #fff',
+                  boxShadow: '0 0 10px 0 #000',
                   filter:
                     'contrast(1.0) saturate(1.0) brightness(1.0) hue-rotate(0deg)'
                 }}
@@ -1280,174 +1246,6 @@ const tvshowDetail = ({ tvshow }) => {
                     'contrast(1.1) saturate(1.1) brightness(1.0) hue-rotate(0deg)'
                 }}
               />
-              {/* {tvshow.news1.split('\n\n').map((paragraph, idx) => (
-                <p
-                  key={idx}
-                  className='description text-black font-bold mt-2 text-xl'
-                  style={{
-                    marginBottom: '10px',
-                    fontFamily: 'Poppins, sans-serif'
-                  }}
-                >
-                  {paragraph}
-                </p>
-              ))}
-              <div className='flex flex-col items-center justify-center'>
-                {tvshow.head2 && (
-                  <p className='bg-gradient-to-r from-amber-500 to-pink-500 font-bold py-3 px-6 rounded-lg shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300 text-bg text-black text-bg mt-2 text-3xl mb-2 items-center justify-center'>
-                    <strong>{tvshow.head2}</strong>
-                  </p>
-                )}
-
-                {tvshow.image2 && (
-                  <Image
-                    src={tvshow.image2}
-                    alt={tvshow.name}
-                    width={1280}
-                    height={720}
-                    quality={90}
-                    loading='lazy'
-                    style={{
-                      width: '800px', // Ensures the image is displayed at this width
-                      height: '400px', // Ensures the image is displayed at this height
-                      margin: 'auto',
-                      marginBottom: '20px',
-                      borderRadius: '50px',
-                      boxShadow: '0 0 10px 0 #fff',
-                      filter:
-                        'contrast(1.1) saturate(1.1) brightness(1.0) hue-rotate(0deg)'
-                    }}
-                  />
-                )}
-
-                {tvshow.image3 && (
-                  <Image
-                    src={tvshow.image3}
-                    alt={tvshow.name}
-                    width={1280}
-                    height={720}
-                    quality={90}
-                    loading='lazy'
-                    style={{
-                      width: '800px', // Ensures the image is displayed at this width
-                      height: '400px', // Ensures the image is displayed at this height
-                      margin: 'auto',
-                      marginBottom: '20px',
-                      borderRadius: '50px',
-                      boxShadow: '0 0 10px 0 #fff',
-                      filter:
-                        'contrast(1.1) saturate(1.1) brightness(1.0) hue-rotate(0deg)'
-                    }}
-                  />
-                )}
-
-                {tvshow.image4 && (
-                  <Image
-                    src={tvshow.image4}
-                    alt={tvshow.name}
-                    width={1280}
-                    height={720}
-                    quality={90}
-                    loading='lazy'
-                    style={{
-                      width: '800px', // Ensures the image is displayed at this width
-                      height: '400px', // Ensures the image is displayed at this height
-                      margin: 'auto',
-                      marginBottom: '20px',
-                      borderRadius: '50px',
-                      boxShadow: '0 0 10px 0 #fff',
-                      filter:
-                        'contrast(1.1) saturate(1.1) brightness(1.0) hue-rotate(0deg)'
-                    }}
-                  />
-                )}
-
-                {tvshow.image5 && (
-                  <Image
-                    src={tvshow.image5}
-                    alt={tvshow.name}
-                    width={1280}
-                    height={720}
-                    quality={90}
-                    loading='lazy'
-                    style={{
-                      width: '800px', // Ensures the image is displayed at this width
-                      height: '400px', // Ensures the image is displayed at this height
-                      margin: 'auto',
-                      marginBottom: '20px',
-                      borderRadius: '50px',
-                      boxShadow: '0 0 10px 0 #fff',
-                      filter:
-                        'contrast(1.1) saturate(1.1) brightness(1.0) hue-rotate(0deg)'
-                    }}
-                  />
-                )}
-
-                {tvshow.image6 && (
-                  <Image
-                    src={tvshow.image6}
-                    alt={tvshow.name}
-                    width={1280}
-                    height={720}
-                    quality={90}
-                    loading='lazy'
-                    style={{
-                      width: '800px', // Ensures the image is displayed at this width
-                      height: '400px', // Ensures the image is displayed at this height
-                      margin: 'auto',
-                      marginBottom: '20px',
-                      borderRadius: '50px',
-                      boxShadow: '0 0 10px 0 #fff',
-                      filter:
-                        'contrast(1.1) saturate(1.1) brightness(1.0) hue-rotate(0deg)'
-                    }}
-                  />
-                )}
-
-                {tvshow.image7 && (
-                  <Image
-                    src={tvshow.image7}
-                    alt={tvshow.name}
-                    width={1280}
-                    height={720}
-                    quality={90}
-                    loading='lazy'
-                    style={{
-                      width: '800px', // Ensures the image is displayed at this width
-                      height: '400px', // Ensures the image is displayed at this height
-                      margin: 'auto',
-                      marginBottom: '20px',
-                      borderRadius: '50px',
-                      boxShadow: '0 0 10px 0 #fff',
-                      filter:
-                        'contrast(1.1) saturate(1.1) brightness(1.0) hue-rotate(0deg)'
-                    }}
-                  />
-                )}
-
-                {tvshow.image8 && (
-                  <Image
-                    src={tvshow.image8}
-                    alt={tvshow.name}
-                    width={1280}
-                    height={720}
-                    quality={90}
-                    loading='lazy'
-                    style={{
-                      width: '800px', // Ensures the image is displayed at this width
-                      height: '400px', // Ensures the image is displayed at this height
-                      margin: 'auto',
-                      marginBottom: '20px',
-                      borderRadius: '50px',
-                      boxShadow: '0 0 10px 0 #fff',
-                      filter:
-                        'contrast(1.1) saturate(1.1) brightness(1.0) hue-rotate(0deg)'
-                    }}
-                  />
-                )}
-              </div> */}
-              {/* </div>
-  </div> */}
             </div>
           </div>
           <div className='sidebar'>

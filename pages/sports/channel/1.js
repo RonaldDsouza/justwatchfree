@@ -20,18 +20,20 @@ const Ch01 = ({ sports }) => {
     <div>
       <Head>
         <title>Watch Sky Sport News HD DE | JWF™</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
         <meta name='robots' content='index, follow' />
         <meta name='revisit-after' content='1 days' />
         <meta
           name='description'
           content='Just Watch Free™ - Explore. Discover. Online. Stream online HD movies with Google Translate for access in any language, worldwide.'
         />
-        <meta
+        {/* <meta
           http-equiv='Permissions-Policy'
           content='encrypted-media=(self)'
         />
         <meta http-equiv='Permissions-Policy' content='accelerometer=(self)' />
-        <meta http-equiv="Permissions-Policy" content="device-orientation=(self); device-motion=(self)" />
+        <meta http-equiv="Permissions-Policy" content="device-orientation=(self); device-motion=(self)" /> */}
 
 
         <meta
@@ -55,6 +57,7 @@ const Ch01 = ({ sports }) => {
           property='og:description'
           content='Just Watch Free™ - Explore. Discover. Online. Stream online HD movies with Google Translate for access in any language, worldwide.'
         />
+
         <meta property='og:image:type' content='image/jpeg' />
         <meta
           property='og:image'

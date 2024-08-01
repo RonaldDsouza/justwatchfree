@@ -20,7 +20,7 @@ const Ch01 = ({ sports }) => {
     <div>
       <Head>
         <title>Watch Sky Sport News HD DE | JWF™</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name='viewport' content='width=device-width, initial-scale=1.0' />
 
         <meta name='robots' content='index, follow' />
         <meta name='revisit-after' content='1 days' />
@@ -35,12 +35,14 @@ const Ch01 = ({ sports }) => {
         <meta http-equiv='Permissions-Policy' content='accelerometer=(self)' />
         <meta http-equiv="Permissions-Policy" content="device-orientation=(self); device-motion=(self)" /> */}
 
-
         <meta
           name='robots'
           content='max-snippet:-1, max-image-preview:large, max-video-preview:-1'
         />
-        <meta name="keywords" content="livetv, freetvchannels, onlinetv, tvchannelsfree, watchtvlive" />
+        <meta
+          name='keywords'
+          content='livetv, freetvchannels, onlinetv, tvchannelsfree, watchtvlive'
+        />
         <meta property='og:locale' content='en_US' />
         <meta
           property='og:site_name'
@@ -63,7 +65,7 @@ const Ch01 = ({ sports }) => {
           property='og:image'
           content='https://justwatchfree.vercel.app/og_image.jpg'
         />
-       
+
         <meta name='twitter:card' content='summary_large_image' />
         <meta name='twitter:title' content='Just Watch Free™' />
         <meta
@@ -74,7 +76,7 @@ const Ch01 = ({ sports }) => {
           name='twitter:image'
           content='https://justwatchfree.vercel.app/og_image.jpg'
         />
-       
+
         <link rel='icon' type='image/x-icon' href='/favicon.ico' />
         <link
           rel='apple-touch-icon'
@@ -101,9 +103,9 @@ const Ch01 = ({ sports }) => {
           crossorigin='anonymous'
           referrerpolicy='no-referrer'
         />
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
             (function (w, d, s, id) {
               if (typeof (w.webpushr) !== 'undefined') return;
               w.webpushr = w.webpushr |function () { (w.webpushr.q = w.webpushr.q |[]).push(arguments) };
@@ -115,8 +117,8 @@ const Ch01 = ({ sports }) => {
 
             webpushr('setup', { 'key': 'BDeLBmbVL39XWa_fEU4TTZ5OFjYr0zLf_PZN6CLLEtCdxOsDYdH6TIWC1ltmT8A4QdXsd8zVbN3izqMFubKPW_k' });
           `
-            }}
-          />
+          }}
+        />
       </Head>
       <GoogleTranslate />
       <SocialSharing />
@@ -125,35 +127,34 @@ const Ch01 = ({ sports }) => {
       <div
         className={`w-full`}
         style={{
-         //  display: 'flex',
-         //  flexDirection: 'column',
+          //  display: 'flex',
+          //  flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
-         //  padding: '20px',
+          //  padding: '20px',
           fontFamily: 'Poppins, sans-serif',
           fontWeight: 500,
           textAlign: 'center',
           backgroundColor: '#D3D3D3'
         }}
       >
-      <h1
-        className='badge bg-gradient-to-r from-pink-500 to-amber-500 font-bold py-3 px-6  shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300'
-        style={{
-          justifyContent: 'center',
-          alignItems: 'center',
-          padding: '10px',
-          fontSize: '35px',
-          fontFamily: 'Poppins, sans-serif',
-          fontWeight: 'bold',
-          textAlign: 'center',
-          marginBottom: '15px'
+        <h1
+          className='badge bg-gradient-to-r from-pink-500 to-amber-500 font-bold py-3 px-6  shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300'
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            padding: '10px',
+            fontSize: '35px',
+            fontFamily: 'Poppins, sans-serif',
+            fontWeight: 'bold',
+            textAlign: 'center',
+            marginBottom: '15px'
+          }}
+        >
+          Just Watch Free Live Sports Section.
+        </h1>
 
-        }}
-      >
-        Just Watch Free Live Sports Section.
-      </h1>
-
-      <div
+        <div
           className='shadow-lg flex items-center justify-center'
           role='navigation'
         >
@@ -202,15 +203,15 @@ const Ch01 = ({ sports }) => {
               </li>
             </button>
             <button className='border border-black p-2 m-1 hover:bg-orange-100'>
-                <li id='menu-item-84' className='menu-antivirus'>
-                  <a
-                    href='../sports/'
-                    className='text-black hover:px-0 text-bg font-black bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-xl'
-                  >
-                    Live Sports<span className='p'></span>
-                  </a>
-                </li>
-              </button>
+              <li id='menu-item-84' className='menu-antivirus'>
+                <a
+                  href='../sports/'
+                  className='text-black hover:px-0 text-bg font-black bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-xl'
+                >
+                  Live Sports<span className='p'></span>
+                </a>
+              </li>
+            </button>
             <button className='border border-black p-2 m-1 hover:bg-orange-100'>
               <li id='menu-item-84' className='menu-antivirus'>
                 <a
@@ -245,7 +246,7 @@ const Ch01 = ({ sports }) => {
             <i className='fab fa-telegram text-blue-600 hover:text-gray-600 ml-2 w-12 h-12 animate-pulse '></i>
           </span>
         </a>
-      {/* <div className='bg-gray-600 shadow'> */}
+        {/* <div className='bg-gray-600 shadow'> */}
         <h1 className='py-5 font-bold leading-none tracking-tight text-green-500 text-center text-3xl dark:text-white'>
           Watch Live Stream Sky Sport News HD DE
         </h1>
@@ -263,26 +264,20 @@ const Ch01 = ({ sports }) => {
                 'contrast(1.0) saturate(1.0) brightness(1.0) hue-rotate(0deg)'
             }}
           />
-          <div className={styles['iframe-container']}   style={{
-              marginTop: '50px',
-            
-            }}>
+          <div style={{ width: '100%', height: '100vh' }}>
             <iframe
-              className='video responsive rounded-3xl mr-8 flex border-1 border-blue-600 bg-gray-600 p-2 webkitallowFullScreen mozallowFullScreen allowFullScreen'
-              marginHeight='0'
-              marginWidth='0'
+              className='video responsive rounded-3xl mr-8 flex border-1 border-blue-600 bg-gray-600 p-2 '
               src='https://dlhd.sx/embed/stream-1.php'
-              name='iframe_a'
-              scrolling='no'
+              style={{
+                marginTop: '50px',
+                width: '100%',
+                height: '100%',
+                border: 'none'
+              }}
               allowFullScreen
-              width='100%'
-              height='100%'
-              frameBorder='0'
             ></iframe>
-                            {/* <iframe class="video responsive" marginheight="0" marginwidth="0" src="https://dlhd.sx/embed/stream-1.php" name="iframe_a" scrolling="no" allowfullscreen="yes" width="100%" height="100%" frameborder="0">Your Browser Do not Support Iframe</iframe>     https://daddylivehd.sx/embed/stream-1.php                               */}
-                         
-      
           </div>
+          {/* <iframe class="video responsive" marginheight="0" marginwidth="0" src="https://dlhd.sx/embed/stream-1.php" name="iframe_a" scrolling="no" allowfullscreen="yes" width="100%" height="100%" frameborder="0">Your Browser Do not Support Iframe</iframe>     https://daddylivehd.sx/embed/stream-1.php                               */}
           <h3 className='mb-9 text-bg text-black-500 text-red-600 text-center xl:px-4'>
             *Note: In the Player Setting Pls Select to{' '}
             <a className='mb-9 text-xl text-black-500 text-blue-600 text-center xl:px-4'>
@@ -293,7 +288,7 @@ const Ch01 = ({ sports }) => {
           </h3>
         </div>
       </div>
-      </div>
+    </div>
   )
 }
 

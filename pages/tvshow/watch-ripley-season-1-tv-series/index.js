@@ -913,7 +913,7 @@ const tvshowDetail = ({ tvshow }) => {
                   layout='responsive'
                 />
               </div>
-              <p className='text-4xl font-bold text-center mb-4'>
+              <p className='px-0 bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-4xl hover:text-blue-800 font-bold mt-2' >
                 Watch {tvshow.name}
               </p>
 

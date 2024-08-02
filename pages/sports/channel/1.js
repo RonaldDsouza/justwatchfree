@@ -264,24 +264,25 @@ const Ch01 = ({ sports }) => {
                 'contrast(1.0) saturate(1.0) brightness(1.0) hue-rotate(0deg)'
             }}
           />
-           <div
-            className={styles['iframe-container']}
-            style={{
-              marginTop: '50px'
-            }}
-          >
+          <div className={styles['iframe-container']}   style={{
+              marginTop: '50px',
+            
+            }}>
             <iframe
-              className='video responsive rounded-3xl  p-2 '
+              className='video responsive rounded-3xl mr-8 flex border-1 border-blue-600 bg-gray-600 p-2 webkitallowFullScreen mozallowFullScreen allowFullScreen'
+              marginHeight='0'
+              marginWidth='0'
               src='https://dlhd.sx/embed/stream-1.php'
-              style={{
-                width: '100%',
-                height: '100%',
-                boxShadow: '0 0 1px 0 #000',
-                filter:
-                  'contrast(1.0) saturate(1.0) brightness(1.0) hue-rotate(0deg)'
-              }}
+              name='iframe_a'
+              scrolling='no'
               allowFullScreen
+              width='100%'
+              height='100%'
+              frameBorder='0'
             ></iframe>
+                            {/* <iframe class="video responsive" marginheight="0" marginwidth="0" src="https://dlhd.sx/embed/stream-1.php" name="iframe_a" scrolling="no" allowfullscreen="yes" width="100%" height="100%" frameborder="0">Your Browser Do not Support Iframe</iframe>     https://daddylivehd.sx/embed/stream-1.php                               */}
+                         
+      
           </div>
           <h3 className='mb-9 text-bg text-black-500 text-red-600 text-center xl:px-4'>
             *Note: In the Player Setting Pls Select to{' '}
@@ -293,7 +294,7 @@ const Ch01 = ({ sports }) => {
           </h3>
         </div>
       </div>
-    </div>
+      </div>
   )
 }
 

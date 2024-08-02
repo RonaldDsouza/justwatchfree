@@ -246,6 +246,26 @@ const Ch01 = ({ sports }) => {
         <h1 className='py-5 font-bold leading-none tracking-tight text-green-500 text-center text-3xl dark:text-white'>
           Watch Live Stream TNT Sports 5 UK
         </h1>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            textAlign: 'center',
+            marginBottom: '15px'
+          }}
+        >
+          <iframe
+            src='https://free.timeanddate.com/clock/i9hhw5re/fs26/tcd3d3d3/pcd3d3d3/ftb/pd2/tt0/tw1/tm1'
+            frameborder='0'
+            width='442'
+            height='33'
+            className='items-center justify-center'
+            style={{
+              fontWeight: 'bold'
+            }}
+          ></iframe> 
+        </div>
         <div className='flex flex-col text-blue-600 text-center items-center justify-center'>
           <Pagination
             currentPage={currentPage}
@@ -265,7 +285,7 @@ const Ch01 = ({ sports }) => {
             
             }}>
             <iframe
-              className='video responsive rounded-3xl mr-8 flex border-1 border-blue-600 bg-gray-600 p-2 webkitallowFullScreen mozallowFullScreen allowFullScreen'
+              className='video responsive rounded-3xl mr-8 flex border-1 border-blue-600 bg-gray-600 p-2 '
               marginHeight='0'
               marginWidth='0'
               src='https://dlhd.sx/embed/stream-25.php'

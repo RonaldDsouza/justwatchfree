@@ -20,8 +20,6 @@ const Ch01 = ({ sports }) => {
     <div>
       <Head>
         <title>Watch Sky Sport News HD DE | JWF™</title>
-        <meta name='viewport' content='width=device-width, initial-scale=1.0' />
-
         <meta name='robots' content='index, follow' />
         <meta name='revisit-after' content='1 days' />
         <meta
@@ -33,7 +31,10 @@ const Ch01 = ({ sports }) => {
           content='encrypted-media=(self)'
         />
         <meta http-equiv='Permissions-Policy' content='accelerometer=(self)' />
-        <meta http-equiv="Permissions-Policy" content="device-orientation=(self); device-motion=(self)" />
+        <meta
+          http-equiv='Permissions-Policy'
+          content='device-orientation=(self); device-motion=(self)'
+        />
 
         <meta
           name='robots'
@@ -59,7 +60,6 @@ const Ch01 = ({ sports }) => {
           property='og:description'
           content='Just Watch Free™ - Explore. Discover. Online. Stream online HD movies with Google Translate for access in any language, worldwide.'
         />
-
         <meta property='og:image:type' content='image/jpeg' />
         <meta
           property='og:image'
@@ -250,6 +250,27 @@ const Ch01 = ({ sports }) => {
         <h1 className='py-5 font-bold leading-none tracking-tight text-green-500 text-center text-3xl dark:text-white'>
           Watch Live Stream Sky Sport News HD DE
         </h1>
+       
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            textAlign: 'center',
+            marginBottom: '15px'
+          }}
+        >
+          <iframe
+            src='https://free.timeanddate.com/clock/i9hhw5re/fs26/tcd3d3d3/pcd3d3d3/ftb/pd2/tt0/tw1/tm1'
+            frameborder='0'
+            width='442'
+            height='33'
+            className='items-center justify-center'
+            style={{
+              fontWeight: 'bold'
+            }}
+          ></iframe> 
+        </div>
         <div className='flex flex-col text-blue-600 text-center items-center justify-center'>
           <Pagination
             currentPage={currentPage}
@@ -264,10 +285,12 @@ const Ch01 = ({ sports }) => {
                 'contrast(1.0) saturate(1.0) brightness(1.0) hue-rotate(0deg)'
             }}
           />
-          <div className={styles['iframe-container']}   style={{
-              marginTop: '50px',
-            
-            }}>
+          <div
+            className={styles['iframe-container']}
+            style={{
+              marginTop: '50px'
+            }}
+          >
             <iframe
               className='video responsive rounded-3xl mr-8 flex border-1 border-blue-600 bg-gray-600 p-2 webkitallowFullScreen mozallowFullScreen allowFullScreen'
               marginHeight='0'
@@ -280,21 +303,30 @@ const Ch01 = ({ sports }) => {
               height='100%'
               frameBorder='0'
             ></iframe>
-                            {/* <iframe class="video responsive" marginheight="0" marginwidth="0" src="https://dlhd.sx/embed/stream-1.php" name="iframe_a" scrolling="no" allowfullscreen="yes" width="100%" height="100%" frameborder="0">Your Browser Do not Support Iframe</iframe>     https://daddylivehd.sx/embed/stream-1.php                               */}
-                         
-      
+            {/* <iframe class="video responsive" marginheight="0" marginwidth="0" src="https://dlhd.sx/embed/stream-1.php" name="iframe_a" scrolling="no" allowfullscreen="yes" width="100%" height="100%" frameborder="0">Your Browser Do not Support Iframe</iframe>     https://daddylivehd.sx/embed/stream-1.php                               */}
           </div>
-          <h3 className='mb-9 text-bg text-black-500 text-red-600 text-center xl:px-4'>
+          <h3 className='mb-9 text-bg text-black-500 text-red-600 text-center xl:px-4 font-bold'>
             *Note: In the Player Setting Pls Select to{' '}
-            <a className='mb-9 text-xl text-black-500 text-blue-600 text-center xl:px-4'>
+            <a className='mb-9 text-xl text-black-500 text-blue-600 text-center xl:px-4 font-bold'>
               {' '}
               UNMUTE PLAYER{' '}
             </a>{' '}
             it Takes time to Unmute.
           </h3>
+          <div style={{ textAlign: 'center', color: 'red' }}>
+            <p className='text-bg font-semibold'>
+              It looks like this content is restricted in your region. You may
+              need to use a VPN to access it.
+            </p>
+            <p className='text-bg font-semibold'>
+              <a href='https://example.com/vpn' style={{ color: '#1e90ff' }}>
+                Click here to learn more about VPNs
+              </a>
+            </p>
+          </div>
         </div>
       </div>
-      </div>
+    </div>
   )
 }
 

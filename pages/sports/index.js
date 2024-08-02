@@ -1,5 +1,5 @@
-import fs from 'fs';
-import path from 'path';
+import fs from 'fs'
+import path from 'path'
 import { useEffect, useState, useRef } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -10,7 +10,6 @@ import Pagination from '../../components/Pagination'
 import SocialSharing from '../../components/SocialSharing'
 import Head from 'next/head'
 import Script from 'next/script'
-
 
 const uwatchfreeSchema = JSON.stringify([
   {
@@ -102,9 +101,9 @@ const getRandomItems = (data, count) => {
 }
 
 const SportsSchedule = ({ schedule }) => {
-    // Get the date key (assuming there's only one top-level key in your JSON)
-    const dateKey = Object.keys(schedule)[0];
-    const scheduleData = schedule[dateKey];
+  // Get the date key (assuming there's only one top-level key in your JSON)
+  const dateKey = Object.keys(schedule)[0]
+  const scheduleData = schedule[dateKey]
   const [currentPage, setCurrentPage] = useState(1)
   const totalPages = // Assume there are 3 pages
     useEffect(() => {
@@ -173,7 +172,10 @@ const SportsSchedule = ({ schedule }) => {
           property='article:modified_time'
           content='2024-01-01T13:13:13+00:00'
         />
-       <meta name="keywords" content="livetv, freetvchannels, onlinetv, tvchannelsfree, watchtvlive"/>
+        <meta
+          name='keywords'
+          content='livetv, freetvchannels, onlinetv, tvchannelsfree, watchtvlive'
+        />
         <meta
           property='og:image'
           content='https://justwatchfree.vercel.app/og_image.jpg'
@@ -218,9 +220,9 @@ const SportsSchedule = ({ schedule }) => {
           crossorigin='anonymous'
           referrerpolicy='no-referrer'
         />
-         <script
-            dangerouslySetInnerHTML={{
-              __html: `
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
             (function (w, d, s, id) {
               if (typeof (w.webpushr) !== 'undefined') return;
               w.webpushr = w.webpushr |function () { (w.webpushr.q = w.webpushr.q |[]).push(arguments) };
@@ -232,10 +234,10 @@ const SportsSchedule = ({ schedule }) => {
 
             webpushr('setup', { 'key': 'BDeLBmbVL39XWa_fEU4TTZ5OFjYr0zLf_PZN6CLLEtCdxOsDYdH6TIWC1ltmT8A4QdXsd8zVbN3izqMFubKPW_k' });
           `
-            }}
-          />
+          }}
+        />
       </Head>
-    
+
       <GoogleTranslate />
       <SocialSharing />
       {/* <Script src='../../propler/ads.js' defer /> */}
@@ -257,149 +259,207 @@ const SportsSchedule = ({ schedule }) => {
       </h1>
 
       <div
-            className='shadow-lg flex items-center justify-center'
-            role='navigation'
-          >
-            <ul
-              id='menu-header-menu'
-              className='menu flex flex-wrap justify-center'
-            >
-              <button className='border border-black p-2 m-1 hover:bg-orange-100'>
-                <li id='menu-item-35' className='menu-home active'>
-                  <a
-                    href='/'
-                    className='text-black hover:px-0 text-bg font-black bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-xl'
-                  >
-                    Home<span className='p'></span>
-                  </a>
-                </li>
-              </button>
+        className='shadow-lg flex items-center justify-center'
+        role='navigation'
+      >
+        <ul
+          id='menu-header-menu'
+          className='menu flex flex-wrap justify-center'
+        >
+          <button className='border border-black p-2 m-1 hover:bg-orange-100'>
+            <li id='menu-item-35' className='menu-home active'>
+              <a
+                href='/'
+                className='text-black hover:px-0 text-bg font-black bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-xl'
+              >
+                Home<span className='p'></span>
+              </a>
+            </li>
+          </button>
 
-              <button className='border border-black p-2 m-1 hover:bg-orange-100'>
-                <li id='menu-item-284913' className='menu-softwarecategories'>
-                  <a href='../trailers/'>
-                    <h3 className='text-black hover:px-0 text-bg font-black bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-xl'>
-                      Trailers<span className='p'></span>
-                    </h3>
-                  </a>
-                </li>
-              </button>
-              <button className='border border-black p-2 m-1 hover:bg-orange-100'>
-                <li id='menu-item-11610' className='menu-graphicdesign'>
-                  <a
-                    href='../movies/'
-                    className='text-black hover:px-0 text-bg font-black bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-xl'
-                  >
-                    Movies<span className='p'></span>
-                  </a>
-                </li>
-              </button>
-              <button className='border border-black p-2 m-1 hover:bg-orange-100'>
-                <li id='menu-item-84' className='menu-antivirus'>
-                  <a
-                    href='../tvshow/'
-                    className='text-black hover:px-0 text-bg font-black bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-xl'
-                  >
-                    Tv Show<span className='p'></span>
-                  </a>
-                </li>
-              </button>
-              <button className='border border-black p-2 m-1 hover:bg-orange-100'>
-                <li id='menu-item-84' className='menu-antivirus'>
-                  <a
-                    href='../sports/'
-                    className='text-black hover:px-0 text-bg font-black bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-xl'
-                  >
-                    Live Sports<span className='p'></span>
-                  </a>
-                </li>
-              </button>
-             <button className='border border-black p-2 m-1 hover:bg-orange-100'>
-                <li id='menu-item-84' className='menu-antivirus'>
-                  <a
-                    href='../adult/'
-                    className='text-black hover:px-0 text-bg font-black bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-xl'
-                  >
-                    Adult<span className='p'></span>
-                  </a>
-                </li>
-              </button>
-             
-              <button className='border border-black p-2 m-1 hover:bg-orange-100'>
-                <li id='menu-item-194' className='menu-tutorials'>
-                  <a
-                    href='../latest/'
-                    className='text-black hover:px-0 text-bg font-black bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-xl'
-                  >
-                    Latest News<span className='p'></span>
-                  </a>
-                </li>
-              </button>
-            </ul>
-          </div>
-          <a
-            href='https://t.me/watchmovietvshow/'
-            target='_blank'
-            rel='noopener noreferrer'
-            className='bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent font-bold text-2xl mt-2 flex items-center justify-center'
-            style={{ marginTop: '25px' }}
-          >
-            <span className='px-0 bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-3xl hover:text-blue-800 font-bold mt-2'>
-              For Request or Demand Movies Join Telegram
-              <i className='fab fa-telegram text-blue-600 hover:text-gray-600 ml-2 w-12 h-12 animate-pulse '></i>
-            </span>
-          </a>
-        {/* </div> */}
+          <button className='border border-black p-2 m-1 hover:bg-orange-100'>
+            <li id='menu-item-284913' className='menu-softwarecategories'>
+              <a href='../trailers/'>
+                <h3 className='text-black hover:px-0 text-bg font-black bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-xl'>
+                  Trailers<span className='p'></span>
+                </h3>
+              </a>
+            </li>
+          </button>
+          <button className='border border-black p-2 m-1 hover:bg-orange-100'>
+            <li id='menu-item-11610' className='menu-graphicdesign'>
+              <a
+                href='../movies/'
+                className='text-black hover:px-0 text-bg font-black bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-xl'
+              >
+                Movies<span className='p'></span>
+              </a>
+            </li>
+          </button>
+          <button className='border border-black p-2 m-1 hover:bg-orange-100'>
+            <li id='menu-item-84' className='menu-antivirus'>
+              <a
+                href='../tvshow/'
+                className='text-black hover:px-0 text-bg font-black bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-xl'
+              >
+                Tv Show<span className='p'></span>
+              </a>
+            </li>
+          </button>
+          <button className='border border-black p-2 m-1 hover:bg-orange-100'>
+            <li id='menu-item-84' className='menu-antivirus'>
+              <a
+                href='../sports/'
+                className='text-black hover:px-0 text-bg font-black bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-xl'
+              >
+                Live Sports<span className='p'></span>
+              </a>
+            </li>
+          </button>
+          <button className='border border-black p-2 m-1 hover:bg-orange-100'>
+            <li id='menu-item-84' className='menu-antivirus'>
+              <a
+                href='../adult/'
+                className='text-black hover:px-0 text-bg font-black bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-xl'
+              >
+                Adult<span className='p'></span>
+              </a>
+            </li>
+          </button>
+
+          <button className='border border-black p-2 m-1 hover:bg-orange-100'>
+            <li id='menu-item-194' className='menu-tutorials'>
+              <a
+                href='../latest/'
+                className='text-black hover:px-0 text-bg font-black bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-xl'
+              >
+                Latest News<span className='p'></span>
+              </a>
+            </li>
+          </button>
+        </ul>
+      </div>
+      <a
+        href='https://t.me/watchmovietvshow/'
+        target='_blank'
+        rel='noopener noreferrer'
+        className='bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent font-bold text-2xl mt-2 flex items-center justify-center'
+        style={{ marginTop: '25px' }}
+      >
+        <span className='px-0 bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-3xl hover:text-blue-800 font-bold mt-2'>
+          For Request or Demand Movies Join Telegram
+          <i className='fab fa-telegram text-blue-600 hover:text-gray-600 ml-2 w-12 h-12 animate-pulse '></i>
+        </span>
+      </a>
+      {/* </div> */}
+
       <div className='container'>
-      <div className='flex-container'>
-        <div className='main-content'>
-          <div className='card-container'>
-            <h1 className='px-0 bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-3xl hover:text-blue-800 font-bold mt-2'>{dateKey}</h1>
-            {Object.entries(scheduleData).map(([category, events], index) => (
-              <div key={index}>
-                <h2 className='px-0 bg-gradient-to-r from-gray-500 to-gray-500 bg-clip-text text-transparent text-4xl hover:text-blue-800 font-bold mt-2 '>{category}</h2>
-                {events.map((event, idx) => (
-                  <div key={idx} className='event-card p-4 border-b border-gray-300'>
-                    <p className='event-time text-gray-600 font-semibold'>  GMT Time:{event.time}</p>
-                    <p className='event-title font-semibold'>{event.event}</p>
-                    {event.channels.map((channel, channelIdx) => (
-                      <p key={channelIdx} className='channel-info font-semibold'>
-                        Channel: <a href={`sports/channel/${channel.channel_id}`} target="_blank" rel="noopener noreferrer" className='text-blue-500 underline'>{channel.channel_name}</a> (ID: {channel.channel_id})
-                      </p>
-                    //   <p key={channelIdx} className='channel-info'>
-                    //   Channel: <a href={`sports/channel/${channel.channel_id}`} target="_blank" rel="noopener noreferrer" className='text-blue-500 underline'>{channel.channel_name}</a> (ID: {channel.channel_id})
-                    // </p>
-                    ))}
-                    <button className='bg-blue-500 text-white py-1 px-4 rounded mt-2'>
-                      
-                      View Event
-                    </button>
+        <div className='flex-container'>
+          <div className='main-content'>
+            <div className='card-container'>
+              <h1 className='px-0 bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-3xl hover:text-blue-800 font-bold mt-2'>
+                {dateKey}
+              </h1>
+              {Object.entries(scheduleData).map(([category, events], index) => (
+                <div key={index}>
+                  <h2
+                    className='animate-pulse badge bg-gradient-to-r from-pink-500 to-amber-500 font-bold py-2 px-4 rounded-lg shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300 text-3xl inline-block'
+                    style={{
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      textAlign: 'center',
+                      marginBottom: '15px'
+                    }}
+                  >
+                    {category}
+                  </h2>
+
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      textAlign: 'center',
+                      marginBottom: '5px'
+                    }}
+                  >
+                 
+                    <iframe
+                      src='https://free.timeanddate.com/clock/i9hhxh8m/fs20/tcd3d3d3/pcd3d3d3/ftb'
+                      frameborder='0'
+                      width='301'
+                      height='48'
+                      className='items-center justify-center'
+                      style={{
+                        fontWeight: 'bold',
+                      }}
+                    ></iframe>
                   </div>
-                ))}
-              </div>
-            ))}
+                  {events.map((event, idx) => (
+                    <div
+                      key={idx}
+                      className='event-card p-4 border-b border-gray-300'
+                    >
+                      <p
+                        className='event-time text-gray-500 font-semibold'
+                        style={{ fontSize: '30px' }}
+                      >
+                        GMT Time: {event.time}
+                      </p>
+
+                    
+                      <p className='event-title text-2xl font-semibold'>{event.event}</p>
+                      {event.channels.map((channel, channelIdx) => (
+                        <p
+                          key={channelIdx}
+                          className='channel-info text-xl font-semibold'
+                        >
+                          Channel:{' '}
+                          <a
+                            href={`sports/channel/${channel.channel_id}`}
+                            target='_blank'
+                            rel='noopener noreferrer'
+                            className='text-blue-500 underline'
+                          >
+                            {channel.channel_name}
+                          </a>{' '}
+                          (ID: {channel.channel_id})
+                        </p>
+                        //   <p key={channelIdx} className='channel-info'>
+                        //   Channel: <a href={`sports/channel/${channel.channel_id}`} target="_blank" rel="noopener noreferrer" className='text-blue-500 underline'>{channel.channel_name}</a> (ID: {channel.channel_id})
+                        // </p>
+                      ))}
+                      <button  className='badge bg-gradient-to-r from-pink-500 to-amber-500 font-bold py-2 px-4 rounded-lg shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300 text-xl inline-block'
+                    style={{
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      textAlign: 'center',
+                      marginTop: '15px'
+                    }}>
+                        View Event
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-
-        </div>
-
-        
       </div>
     </div>
   )
 }
 
-export async function getStaticProps() {
-  const filePath = path.join(process.cwd(), 'public', 'sports-schedule.json');
-  const jsonData = fs.readFileSync(filePath, 'utf-8');
-  const schedule = JSON.parse(jsonData);
+export async function getStaticProps () {
+  const filePath = path.join(process.cwd(), 'public', 'sports-schedule.json')
+  const jsonData = fs.readFileSync(filePath, 'utf-8')
+  const schedule = JSON.parse(jsonData)
 
   return {
     props: {
-      schedule,
-    },
-  };
+      schedule
+    }
+  }
 }
 
-export default SportsSchedule;
-
+export default SportsSchedule

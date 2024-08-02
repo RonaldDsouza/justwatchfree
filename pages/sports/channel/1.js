@@ -28,12 +28,12 @@ const Ch01 = ({ sports }) => {
           name='description'
           content='Just Watch Free™ - Explore. Discover. Online. Stream online HD movies with Google Translate for access in any language, worldwide.'
         />
-        {/* <meta
+        <meta
           http-equiv='Permissions-Policy'
           content='encrypted-media=(self)'
         />
         <meta http-equiv='Permissions-Policy' content='accelerometer=(self)' />
-        <meta http-equiv="Permissions-Policy" content="device-orientation=(self); device-motion=(self)" /> */}
+        <meta http-equiv="Permissions-Policy" content="device-orientation=(self); device-motion=(self)" />
 
         <meta
           name='robots'

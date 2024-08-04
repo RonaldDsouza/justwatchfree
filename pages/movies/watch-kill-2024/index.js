@@ -186,7 +186,7 @@ const moviesDetail = ({ movie }) => {
 
   // Define video sources
   const videoSources = [
-    { name: 'Abyss.to', url: `https://short.ink/${movieVideoItem.id}` },
+    { name: 'Abyss.to', url: `https://short.ink/${movieVideoItem.id}?thumbnail=${movie.image1}` },
     { name: 'Vidsrc.me', url: `https://vidsrc.me/embed/movie?imdb=${movieId}` },
     { name: 'Vidsrc.pro', url: `https://vidsrc.pro/embed/movie/${movieId}` },
     { name: 'Vidsrc.cc', url: `https://vidsrc.cc/v2/embed/movie/${movieId}` },
@@ -646,7 +646,7 @@ const moviesDetail = ({ movie }) => {
       <GoogleTranslate />
       <SocialSharing />
       {/* <Script src='../../propler/ads.js' defer /> */}
-      {/* <Script src='../../propler/ads2.js' defer /> */}
+      <Script src='../../propler/ads2.js' defer />
 
       <div
         className={`w-full`}

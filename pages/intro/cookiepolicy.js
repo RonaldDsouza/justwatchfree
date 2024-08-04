@@ -300,7 +300,7 @@ const cookiepolicy = () => {
       <GoogleTranslate />
  <SocialSharing />
       {/* <Script src='../../propler/ads.js' defer /> */}
-      {/* <Script src='../../propler/ads2.js' defer /> */}
+      <Script src='../../propler/ads2.js' defer />
       <script
           type='application/ld+json'
           dangerouslySetInnerHTML={{ __html: rankMathSchema }}

@@ -609,7 +609,7 @@ const trailersDetail = ({ trailers }) => {
 <GoogleTranslate />
  <SocialSharing />
       {/* <Script src='../../propler/ads.js' defer /> */}
-      {/* <Script src='../../propler/ads2.js' defer /> */}
+      <Script src='../../propler/ads2.js' defer />
 
       <div
         className={`w-full`}
@@ -1056,8 +1056,48 @@ const trailersDetail = ({ trailers }) => {
                 /> */}
               </div>
 
-              <div className='flex flex-col items-center justify-center'></div>
-              {trailers.mp3player && <MP3Player mp3Url={trailers.mp3player} />}
+              <div className='flex flex-col items-center justify-center'>
+                {/* {trailers.mp3player && (
+                  <MP3Player mp3Url={trailers.mp3player} />
+                )} */}
+                {trailers.linkurl && (
+                  <Link href={trailers.linkurl}>
+                    <div
+                      className='text-black text-2xl mt-2 bg-gradient-to-r from-pink-500 to-amber-500 font-bold py-3 px-6 shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300 rounded-md btn btn-primary'
+                      style={{
+                        fontFamily: 'Poppins, sans-serif',
+                        boxShadow: '0 0 10px 0 #000',
+                        marginTop: '20px',
+                        filter:
+                          'contrast(1.2) saturate(1.3) brightness(1.1) hue-rotate(15deg)'
+                        // textShadow: '2px 1px 1px #000'
+                      }}
+                    >
+                      {' '}
+                      Click to Watch Season 1
+                    </div>
+                  </Link>
+                )}
+          
+              {trailers.linkurl && (
+                  <Link href={trailers.linkurl2}>
+                    <div
+                      className='text-black text-2xl mt-2 bg-gradient-to-r from-pink-500 to-amber-500 font-bold py-3 px-6 shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300 rounded-md btn btn-primary'
+                      style={{
+                        fontFamily: 'Poppins, sans-serif',
+                        boxShadow: '0 0 10px 0 #000',
+                        marginTop: '20px',
+                        filter:
+                          'contrast(1.2) saturate(1.3) brightness(1.1) hue-rotate(15deg)'
+                        // textShadow: '2px 1px 1px #000'
+                      }}
+                    >
+                      {' '}
+                      Click to Watch Season 2
+                    </div>
+                  </Link>
+                )}
+              </div>
 
               <Pagination
                 currentPage={currentPage}

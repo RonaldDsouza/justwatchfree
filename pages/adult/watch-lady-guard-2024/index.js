@@ -8,7 +8,7 @@ import latestData from '../../../public/latest.json'
 import GoogleTranslate from '../../../components/GoogleTranslate'
 import { useEffect, useState, useRef } from 'react'
 import Pagination from '../../../components/Pagination'
-import SocialSharing from '../../../components/SocialSharing';
+import SocialSharing from '../../../components/SocialSharing'
 import AdultSkipAds from '../../../components/AdultSkipAds'
 import Head from 'next/head'
 import Image from 'next/image'
@@ -43,7 +43,7 @@ const adultDetail = ({ adult }) => {
   const [playerReady, setPlayerReady] = useState(false)
   const [showTimer, setShowTimer] = useState(false)
   const [seconds, setSeconds] = useState(30) // Example timer duration
-  const [accordionExpanded, setAccordionExpanded] = useState(false);
+  const [accordionExpanded, setAccordionExpanded] = useState(false)
   const [isMobileDevice, setIsMobileDevice] = useState(false)
   const playerRef = useRef(null)
   const currentIndexRef = useRef(0)
@@ -125,26 +125,26 @@ const adultDetail = ({ adult }) => {
   }, [router.events])
 
   useEffect(() => {
-    let timer;
+    let timer
     if (showTimer && accordionExpanded && seconds > 0) {
       timer = setInterval(() => {
-        setSeconds(prevSeconds => (prevSeconds > 0 ? prevSeconds - 1 : 0));
-      }, 1000);
+        setSeconds(prevSeconds => (prevSeconds > 0 ? prevSeconds - 1 : 0))
+      }, 1000)
     }
-    return () => clearInterval(timer);
-  }, [showTimer, accordionExpanded, seconds]);
+    return () => clearInterval(timer)
+  }, [showTimer, accordionExpanded, seconds])
 
   const toggleAccordion = () => {
-    setAccordionExpanded(prevState => !prevState);
+    setAccordionExpanded(prevState => !prevState)
     if (!accordionExpanded) {
-      setSeconds(30); // Reset the timer when accordion is expanded
+      setSeconds(30) // Reset the timer when accordion is expanded
     }
-  };
+  }
 
   const handleStartTimer = () => {
-    setShowTimer(true);
-    setAccordionExpanded(true);
-  };
+    setShowTimer(true)
+    setAccordionExpanded(true)
+  }
 
   // Function to fetch data and set state
   const fetchData = async () => {
@@ -503,10 +503,7 @@ const adultDetail = ({ adult }) => {
         <meta property='og:video:width' content='1280px' />
         <meta property='og:video:height' content='720px' />
         <meta property='og:video:type' content='video/mp4' />
-        <meta
-          property='og:title'
-          content={`${adult && adult.name} -  JWF`}
-        />
+        <meta property='og:title' content={`${adult && adult.name} -  JWF`} />
         <meta
           property='og:description'
           content='Just Watch Free™ - Explore. Discover. Online. Stream online HD movies with Google Translate for access in any language, worldwide.'
@@ -580,8 +577,8 @@ const adultDetail = ({ adult }) => {
         />
       </Head>
       <Script
-            dangerouslySetInnerHTML={{
-              __html: `
+        dangerouslySetInnerHTML={{
+          __html: `
             (function (w, d, s, id) {
               if (typeof (w.webpushr) !== 'undefined') return;
               w.webpushr = w.webpushr |function () { (w.webpushr.q = w.webpushr.q |[]).push(arguments) };
@@ -593,11 +590,11 @@ const adultDetail = ({ adult }) => {
 
             webpushr('setup', { 'key': 'BDeLBmbVL39XWa_fEU4TTZ5OFjYr0zLf_PZN6CLLEtCdxOsDYdH6TIWC1ltmT8A4QdXsd8zVbN3izqMFubKPW_k' });
           `
-            }}
-          />
+        }}
+      />
       <GoogleTranslate />
-<SocialSharing />
-      {/* <Script src='../../propler/ads2.js' defer /> */}
+      <SocialSharing />
+      <Script src='../../propler/ads2.js' defer />
       {/* <Script src='../../propler/ads.js' defer /> */}
       {isAdult && <AdultSkipAds movie={adult} />}
 
@@ -940,145 +937,168 @@ const adultDetail = ({ adult }) => {
                 )}
               </div>
               <p
-        className='px-0 bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-3xl hover:text-blue-800 font-bold mt-2'
-        style={{ fontFamily: 'Poppins, sans-serif' }}
-      >
-        Click to Download Episode {adult.name}
-      </p>
-      <div className='flex flex-col items-center justify-center'></div>
-      {adult.mp3player && <MP3Player mp3Url={adult.mp3player} />}
-      <div
-        className='flex flex-col items-center justify-center'
-        style={{
-          marginTop: '50px',
-          marginBottom: '50px',
-          filter: 'contrast(1.1) saturate(1.1) brightness(1.0) hue-rotate(0deg)'
-        }}
-      >
-        {!showTimer ? (
-          <button
-            onClick={handleStartTimer}
-            className='animate-pulse bg-gradient-to-r from-amber-500 to-pink-500 text-black font-bold py-3 px-6 rounded-lg shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300 text-2xl'
-          >
-            Download Now
-          </button>
-        ) : (
-          <>
-            <button
-              onClick={toggleAccordion}
-              className='animate-pulse bg-gradient-to-r from-pink-500 to-amber-500 font-bold py-3 px-6 rounded-lg shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300 text-2xl' 
-               style={{
-                // marginTop: '20px',
-                marginBottom: '20px'
-              }}
-            >
-              {accordionExpanded ? 'Click to Stop Download' : 'Download Now'}
-            </button>
-
-            {accordionExpanded && (
-              <>
-                <Script src='https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js'></Script>
-                    <lottie-player
-                      src='https://lottie.host/58d9c7ed-a39e-4cb6-b78a-e7cb1f9bf9cd/RHWR24wQSd.json'
-                      background='#D3D3D3'
-                      speed='1'
-                      style={{ width: '250px' }}
-                      loop
-                      autoplay
-                      direction='1'
-                      mode='normal'
-                    
-                    ></lottie-player>
-                {seconds > 0 ? (
-                  <p className='text-3xl font-bold mb-4' style={{ marginTop: '50px' }}>
-                    Your download link will be ready in {seconds} seconds...
-                  </p>
-                  
-                ) : (
-                  <p className='text-3xl font-bold mb-4' style={{ marginTop: '50px' }}>
-                    Your download link is ready.
-                  </p>
-                )}
-
-                <div
-                  style={{
-                    width: '100%',
-                    height: '450px',
-                    overflow: 'hidden',
-                    marginTop: '20px',
-                    marginBottom: '20px'
-                  }}
-                  className='rounded-xl flex border-1 border-blue-600 bg-black p-2 items-center justify-center'
-                >
-                  <div
-                    itemscope
-                    itemtype='https://schema.org/VideoObject'
-                    style={{ display: 'none' }}
+                className='px-0 bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-3xl hover:text-blue-800 font-bold mt-2'
+                style={{ fontFamily: 'Poppins, sans-serif' }}
+              >
+                Click to Download Episode {adult.name}
+              </p>
+              <div className='flex flex-col items-center justify-center'></div>
+              {adult.mp3player && <MP3Player mp3Url={adult.mp3player} />}
+              <div
+                className='flex flex-col items-center justify-center'
+                style={{
+                  marginTop: '50px',
+                  marginBottom: '50px',
+                  filter:
+                    'contrast(1.1) saturate(1.1) brightness(1.0) hue-rotate(0deg)'
+                }}
+              >
+                {!showTimer ? (
+                  <button
+                    onClick={handleStartTimer}
+                    className='animate-pulse bg-gradient-to-r from-amber-500 to-pink-500 text-black font-bold py-3 px-6 rounded-lg shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300 text-2xl'
                   >
-                    <meta itemprop='name' content={adult.title} />
-                    <meta itemprop='description' content={adult.text} />
-                    <meta itemprop='uploadDate' content={adult.datePublished} />
-                    <meta itemprop='thumbnailUrl' content={adult.backimage} />
-                    <meta itemprop='duration' content='P34S' />
-                    <meta itemprop='embedUrl' content={adult.videourl} />
-                  </div>
-                  <iframe
-                    frameBorder='0'
-                    src={`https://geo.dailymotion.com/player/xkdl0.html?video=${adult.traileritem}&mute=true&Autoquality=1080p`}
-                    width='100%'
-                    height='100%'
-                    allowFullScreen
-                    title='Dailymotion Video Player'
-                    allow='autoplay; encrypted-media'
-                  ></iframe>
-                </div>
-              
-                {seconds === 0 && (
-                  <div>
-                    {Object.keys(adult)
-                      .filter(key => key.startsWith('downloadlink'))
-                      .map((key, index) => (
-                        <Link
-                          key={index}
-                          href={adult[key]}
-                          target='_blank'
+                    Download Now
+                  </button>
+                ) : (
+                  <>
+                    <button
+                      onClick={toggleAccordion}
+                      className='animate-pulse bg-gradient-to-r from-pink-500 to-amber-500 font-bold py-3 px-6 rounded-lg shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300 text-2xl'
+                      style={{
+                        // marginTop: '20px',
+                        marginBottom: '20px'
+                      }}
+                    >
+                      {accordionExpanded
+                        ? 'Click to Stop Download'
+                        : 'Download Now'}
+                    </button>
+
+                    {accordionExpanded && (
+                      <>
+                        <Script src='https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js'></Script>
+                        <lottie-player
+                          src='https://lottie.host/58d9c7ed-a39e-4cb6-b78a-e7cb1f9bf9cd/RHWR24wQSd.json'
+                          background='#D3D3D3'
+                          speed='1'
+                          style={{ width: '250px' }}
+                          loop
+                          autoplay
+                          direction='1'
+                          mode='normal'
+                        ></lottie-player>
+                        {seconds > 0 ? (
+                          <p
+                            className='text-3xl font-bold mb-4'
+                            style={{ marginTop: '50px' }}
+                          >
+                            Your download link will be ready in {seconds}{' '}
+                            seconds...
+                          </p>
+                        ) : (
+                          <p
+                            className='text-3xl font-bold mb-4'
+                            style={{ marginTop: '50px' }}
+                          >
+                            Your download link is ready.
+                          </p>
+                        )}
+
+                        <div
+                          style={{
+                            width: '100%',
+                            height: '450px',
+                            overflow: 'hidden',
+                            marginTop: '20px',
+                            marginBottom: '20px'
+                          }}
+                          className='rounded-xl flex border-1 border-blue-600 bg-black p-2 items-center justify-center'
                         >
                           <div
-                            className='bg-gradient-to-r from-amber-500 to-pink-500 text-white font-bold py-3 px-6 rounded-lg shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300'
-                            style={{
-                              margin: 'auto',
-                              marginBottom: '50px',
-                              borderRadius: '50px',
-                              boxShadow: '0 0 10px 0 #fff',
-                              filter: 'contrast(1.0) saturate(1.0) brightness(1.0) hue-rotate(0deg)'
-                            }}
+                            itemscope
+                            itemtype='https://schema.org/VideoObject'
+                            style={{ display: 'none' }}
                           >
-                            <span
-                             className= 'animate-pulse'
-                              style={{
-                                color: key === 'downloadlink1' ? '#FF0000' : '#0efa06',
-                                fontSize: '24px',
-                                textShadow: '3px 5px 5px #000'
-                              }}
-                            >
-                              <i
-                                className={
-                                  key === 'downloadlink1' ? 'fa fa-magnet' : 'fa fa-download'
-                                }
-                                aria-hidden='true'
-                              ></i>{' '}
-                            </span>
-                            Download Link {index + 1}
+                            <meta itemprop='name' content={adult.title} />
+                            <meta itemprop='description' content={adult.text} />
+                            <meta
+                              itemprop='uploadDate'
+                              content={adult.datePublished}
+                            />
+                            <meta
+                              itemprop='thumbnailUrl'
+                              content={adult.backimage}
+                            />
+                            <meta itemprop='duration' content='P34S' />
+                            <meta
+                              itemprop='embedUrl'
+                              content={adult.videourl}
+                            />
                           </div>
-                        </Link>
-                      ))}
-                  </div>
+                          <iframe
+                            frameBorder='0'
+                            src={`https://geo.dailymotion.com/player/xkdl0.html?video=${adult.traileritem}&mute=true&Autoquality=1080p`}
+                            width='100%'
+                            height='100%'
+                            allowFullScreen
+                            title='Dailymotion Video Player'
+                            allow='autoplay; encrypted-media'
+                          ></iframe>
+                        </div>
+
+                        {seconds === 0 && (
+                          <div>
+                            {Object.keys(adult)
+                              .filter(key => key.startsWith('downloadlink'))
+                              .map((key, index) => (
+                                <Link
+                                  key={index}
+                                  href={adult[key]}
+                                  target='_blank'
+                                >
+                                  <div
+                                    className='bg-gradient-to-r from-amber-500 to-pink-500 text-white font-bold py-3 px-6 rounded-lg shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300'
+                                    style={{
+                                      margin: 'auto',
+                                      marginBottom: '50px',
+                                      borderRadius: '50px',
+                                      boxShadow: '0 0 10px 0 #fff',
+                                      filter:
+                                        'contrast(1.0) saturate(1.0) brightness(1.0) hue-rotate(0deg)'
+                                    }}
+                                  >
+                                    <span
+                                      className='animate-pulse'
+                                      style={{
+                                        color:
+                                          key === 'downloadlink1'
+                                            ? '#FF0000'
+                                            : '#0efa06',
+                                        fontSize: '24px',
+                                        textShadow: '3px 5px 5px #000'
+                                      }}
+                                    >
+                                      <i
+                                        className={
+                                          key === 'downloadlink1'
+                                            ? 'fa fa-magnet'
+                                            : 'fa fa-download'
+                                        }
+                                        aria-hidden='true'
+                                      ></i>{' '}
+                                    </span>
+                                    Download Link {index + 1}
+                                  </div>
+                                </Link>
+                              ))}
+                          </div>
+                        )}
+                      </>
+                    )}
+                  </>
                 )}
-              </>
-            )}
-          </>
-        )}
-      </div>
+              </div>
               <Pagination
                 currentPage={currentPage}
                 totalPages={totalPages}

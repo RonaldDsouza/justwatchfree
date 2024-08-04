@@ -38,7 +38,7 @@ const SearchComponent = () => {
       <input
         type="text"
         className={styles.searchInput}
-        placeholder="Search movies..."
+        placeholder="Search..."
         value={searchQuery}
         onChange={e => setSearchQuery(e.target.value)}
       />

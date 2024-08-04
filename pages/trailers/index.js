@@ -371,9 +371,15 @@ const trailersPage = ({ items }) => {
             <i className='fab fa-telegram text-blue-600 hover:text-gray-600 ml-2 w-12 h-12 animate-pulse '></i>
           </span>
         </a>
+        <h2
+          className='bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent font-bold text-3xl mt-2 flex items-center justify-center gap-2'
+          style={{ marginTop: '25px' }}
+        >
+          Popular Movies & Tv Show to Watch Search Now
+         </h2>      
         <span className='px-0 bg-clip-text text-sm text-black font-bold mt-2'>
-      <SearchComponent />
-      </span>
+          <SearchComponent />
+        </span>
       <div className='container'>
         <div className='flex-container'>
           <div className='main-content'>

@@ -9,7 +9,7 @@ import GoogleTranslate from '../components/GoogleTranslate'
 import InPagePushAd from '../components/InPagePushAd'
 import NativeBannerAd from '../components/NativeBannerAd'
 import SocialSharing from '../components/SocialSharing'
-import SearchComponent from '../components/SearchComponent';
+import SearchComponent from '../components/SearchComponent'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -247,7 +247,10 @@ const HomePage = () => {
     <div className='w-full' style={{ backgroundColor: '#D3D3D3' }}>
       <div className='container'>
         <Head>
-          <title>{pageTitle}</title>
+          <title>
+            Just Watch Free™ - Stream Movies Online | No Registration Required
+          </title>
+
           <link
             rel='sitemap'
             type='application/xml'
@@ -290,8 +293,9 @@ const HomePage = () => {
           />
           <meta
             name='description'
-            content='Just Watch Free™ - Explore. Discover. Online. Stream online HD movies with Google Translate for access in any language, worldwide.'
+            content='Watch free full-length movies online with no registration required. Stream HD movies on Just Watch Free™ with access in any language, worldwide.'
           />
+
           {/* <meta
             name='description'
             content='Just Watch Free™ - Explore. Discover. Online. Free movie streaming sites with no registration. Watch free full-length movies online. Stream online HD movies with Google Translate for access in any language, worldwide.'
@@ -349,7 +353,10 @@ const HomePage = () => {
             name='facebook-domain-verification'
             content='du918bycikmo1jw78wcl9ih6ziphd7'
           />
-        <meta name='dailymotion-domain-verification' content='dmlp2t3912gbq4occ' />
+          <meta
+            name='dailymotion-domain-verification'
+            content='dmlp2t3912gbq4occ'
+          />
           <meta name='monetag' content='98a412cb5612b9188cd76b9744304b6c' />
 
           <script
@@ -503,9 +510,18 @@ const HomePage = () => {
             </span>
           </a>
         </div>
+    
+       
+        <h2
+          className='bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent font-bold text-3xl mt-2 flex items-center justify-center gap-2'
+          style={{ marginTop: '25px' }}
+        >
+          Popular Movies & Tv Show to Watch Search Now
+         </h2>      
         <span className='px-0 bg-clip-text text-sm text-black font-bold mt-2'>
-      <SearchComponent />
-      </span>
+          <SearchComponent />
+        </span>
+
         <div className='container'>
           <div className='flex-container'>
             <div className='category-container'>

@@ -4,7 +4,7 @@ import moviesData from '../../../public/movies.json'
 import tvshowData from '../../../public/tvshow.json'
 import trailersData from '../../../public/trailers.json'
 import GoogleTranslate from '../../../components/GoogleTranslate'
-import SocialSharing from '../../../components/SocialSharing';;
+import SocialSharing from '../../../components/SocialSharing'
 import adultData from '../../../public/adult.json'
 import { useEffect, useState, useRef } from 'react'
 import Head from 'next/head'
@@ -12,6 +12,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import HomeStyles from '@styles/styles.module.css'
 import Pagination from '../../../components/Pagination'
+import SearchComponent from '../../../components/SearchComponent';
 import Script from 'next/script'
 
 // Function to get random links from each dataset
@@ -471,6 +472,9 @@ const latestDetail = ({ latest }) => {
             <i className='fab fa-telegram text-blue-600 hover:text-gray-600 ml-2 w-12 h-12 animate-pulse '></i>
           </span>
         </a>
+        <span className='px-0 bg-clip-text text-sm text-black font-bold mt-2'>
+      <SearchComponent />
+      </span>
         <Pagination
           currentPage={currentPage}
           totalPages={totalPages}

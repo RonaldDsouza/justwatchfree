@@ -6,6 +6,7 @@ import moviesData from '../../public/movies.json'
 import GoogleTranslate from '../../components/GoogleTranslate'
 import Pagination from '../../components/Pagination'
 import SocialSharing from '../../components/SocialSharing'
+import SearchComponent from '../../components/SearchComponent';
 import Head from 'next/head'
 import Script from 'next/script'
 
@@ -335,7 +336,9 @@ const moviesPage = ({ items }) => {
           <i className='fab fa-telegram text-blue-600 hover:text-gray-600 ml-2 w-12 h-12 animate-pulse '></i>
         </span>
       </a>
-
+      <span className='px-0 bg-clip-text text-sm text-black font-bold mt-2'>
+      <SearchComponent />
+      </span>
       <div className='container'>
         {/* <h1  className='px-0 font-black bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent'>movies Section</h1> */}
         <div className='flex-container'>

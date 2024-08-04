@@ -4,6 +4,7 @@ import Image from 'next/image'
 import latestData from '../../public/latest.json'
 import GoogleTranslate from '../../components/GoogleTranslate';
 import SocialSharing from '../../components/SocialSharing';
+import SearchComponent from '../../components/SearchComponent';
 import Head from 'next/head'
 import Script from 'next/script'
 
@@ -329,7 +330,9 @@ const latestPage = ({ items }) => {
           </span>
         </a>
       {/* </div> */}
-    
+      <span className='px-0 bg-clip-text text-sm text-black font-bold mt-2'>
+      <SearchComponent />
+      </span>
       <div className='container'>
       
         <div className='flex-container'>

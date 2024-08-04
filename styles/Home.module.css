@@ -201,3 +201,14 @@
 .tab:hover {
   background-color: #e0e0e0; /* Change background color on hover */
 }
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Full viewport height */
+  text-align: center;
+  position: relative; /* Ensure positioning context */
+  z-index: 0; /* Base z-index */
+}
+

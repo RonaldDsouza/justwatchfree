@@ -9,6 +9,7 @@ import GoogleTranslate from '../components/GoogleTranslate'
 import InPagePushAd from '../components/InPagePushAd'
 import NativeBannerAd from '../components/NativeBannerAd'
 import SocialSharing from '../components/SocialSharing'
+import SearchComponent from '../components/SearchComponent';
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -502,7 +503,9 @@ const HomePage = () => {
             </span>
           </a>
         </div>
-
+        <span className='px-0 bg-clip-text text-sm text-black font-bold mt-2'>
+      <SearchComponent />
+      </span>
         <div className='container'>
           <div className='flex-container'>
             <div className='category-container'>

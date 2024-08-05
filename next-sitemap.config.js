@@ -2,7 +2,7 @@
 module.exports = {
     siteUrl: 'https://justwatchfree.vercel.app/',
     changefreq: 'daily',
-    priority: 2.00,
+    priority: 0.9,
     // generateRobotsTxt: true,
     sitemapSize: 7000,
   }
